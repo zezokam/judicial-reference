@@ -7,7 +7,7 @@
     
     <!-- وسوم معاينة الرابط (Open Graph) -->
     <meta property="og:title" content="حاسبة النفقة التقديرية - المرجع القضائي" />
-    <meta property="og:description" content="أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة" />
+    <meta property="og:description" content="أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية، مع الأخذ في الاعتبار أن التقدير النهائي يخضع للسلطة التقديرية للمحكمة." />
     <meta property="og:image" content="https://alkamali.uk/images/thumbnails/alimony-calculator-og-image.jpg" />
     <meta property="og:url" content="https://alkamali.uk/pages/alimony_calculator.html" />
     <meta property="og:type" content="website" />
@@ -16,7 +16,7 @@
     <!-- وسوم تويتر كاردز -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="حاسبة النفقة التقديرية - المرجع القضائي" />
-    <meta name="twitter:description" content="أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة" />
+    <meta name="twitter:description" content="أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية، مع الأخذ في الاعتبار أن التقدير النهائي يخضع للسلطة التقديرية للمحكمة." />
     <meta name="twitter:image" content="https://alkamali.uk/images/thumbnails/alimony-calculator-og-image.jpg" />
     
     <link rel="stylesheet" href="../css/style.css">
@@ -337,7 +337,7 @@
     <main>
         <div class="page-header">
             <h1 class="page-title">حاسبة النفقة التقديرية</h1>
-            <p class="page-description">أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة</p>
+            <p class="page-description">أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية، مع الأخذ في الاعتبار أن التقدير النهائي يخضع للسلطة التقديرية للمحكمة.</p>
         </div>
 
         <div class="content-section">
@@ -356,10 +356,10 @@
                                 <input type="checkbox" id="includeHousingAllowance">
                             </div>
                             <div class="percentage-info">
-                                <p><strong>ملاحظة:</strong> اختيار بدل السكن يؤثر على نسبة حساب نفقة الأطفال:</p>
+                                <p><strong>ملاحظة:</strong> يؤثر طلب بدل السكن على طريقة الحساب:</p>
                                 <ul>
-                                    <li>مع بدل السكن: تُضاف نسبة 20% للسكن، ونسبة 5% × معامل العمر لكل طفل</li>
-                                    <li>بدون بدل السكن: تُحسب نفقة الأطفال بنسبة 6.5% × معامل العمر لكل طفل</li>
+                                    <li><strong>مع طلب بدل سكن مستقل:</strong> يُحتسب 8% من الدخل الصافي للسكن، بالإضافة إلى 5% × معامل العمر لكل طفل.</li>
+                                    <li><strong>بدون طلب بدل سكن مستقل:</strong> تُضاف نسبة 9% للسكن ضمن النفقة العامة، وتُحسب نفقة الأطفال بنسبة 6.5% × معامل العمر لكل طفل.</li>
                                 </ul>
                             </div>
                         </div>
@@ -376,11 +376,11 @@
                             <div class="age-factor-info">
                                 <h4>معاملات الفئات العمرية:</h4>
                                 <ul>
-                                    <li>رضيع (أقل من سنتين): معامل 1.2</li>
-                                    <li>طفل صغير (من 2 إلى 6 سنوات): معامل 1.0</li>
-                                    <li>طفل مدرسي (من 7 إلى 12 سنة): معامل 1.1</li>
-                                    <li>مراهق (من 13 إلى 17 سنة): معامل 1.2</li>
-                                    <li>شاب (18 سنة فأكثر): معامل 0.8</li>
+                                    <li>أقل من سنتين: معامل 1.2 (حاجات غذائية وطبية مرتفعة)</li>
+                                    <li>من 2 إلى 6 سنوات: معامل 1.1 (مرحلة رياض الأطفال)</li>
+                                    <li>من 7 إلى 12 سنة: معامل 1.1 (مصاريف دراسية منتظمة)</li>
+                                    <li>من 13 إلى 17 سنة: معامل 1.3 (ارتفاع مصروف المراهق)</li>
+                                    <li>18 فأكثر (غير متزوج/غير عامل): معامل 0.9 (استمرار الحاجة مع تخفيف الالتزامات)</li>
                                 </ul>
                             </div>
                         </div>
@@ -444,13 +444,23 @@
                         </div>
                         
                         <div class="seasonal-increase-option">
-                            <h3>الزيادة الموسمية</h3>
+               <div class="form-group">
                             <div class="checkbox-group">
-                                <label for="includeSeasonalIncrease">يشمل الحكم زيادة في الأعياد والمدارس</label>
+                                <label for="includeSeasonalIncrease">هل ترغب في حساب الزيادة الموسمية (للأعياد والدراسة)؟</label>
                                 <input type="checkbox" id="includeSeasonalIncrease">
                             </div>
                         </div>
-                        
+
+                        <div class="form-group">
+                            <label for="geographicLocation">المنطقة الجغرافية:</label>
+                            <select id="geographicLocation" class="form-control">
+                                <option value="normal">عادية</option>
+                                <option value="high_cost">مرتفعة الكلفة</option>
+                            </select>
+                            <div class="percentage-info">
+                                <p>في المناطق مرتفعة الكلفة، تُضاف نسبة 2% من الدخل الصافي لتغطية مصاريف إضافية.</p>
+                            </div>
+                        </div>                       
                         <div class="buttons-container">
                             <button type="button" id="resetBtn" class="btn-reset">إعادة تعيين</button>
                             <button type="button" id="calculateBtn" class="btn-calculate">حساب النفقة</button>
@@ -504,30 +514,42 @@
             <h2>معلومات عن حساب النفقة التقديرية</h2>
             <p>تعتمد النفقة التقديرية للأبناء على عدة عوامل أهمها دخل الأب وعدد الأبناء المستحقين للنفقة وأعمارهم، مع مراعاة الظروف الخاصة مثل الالتزامات المالية الأخرى والمسؤوليات العائلية.</p>
             
-            <p class="judge-discretion-note" style="background-color: #f0f8ff; padding: 1rem; border-radius: var(--border-radius); border-right: 3px solid #4682b4; margin-bottom: 1.5rem; font-weight: 500;">النموذج لا يُلزم القاضي بالفصل بين السكني والمعيشة، بل يوفّر له وسيلة لمعرفة أثر إدراج بدل السكن في التقدير العام. ويبقى القرار النهائي له، وفقًا لظروف الدعوى والبيّنة المقدمة.</p>
+            <p class="judge-discretion-note" style="background-color: #f0f8ff; padding: 1rem; border-radius: var(--border-radius); border-right: 3px solid #4682b4; margin-bottom: 1.5rem; font-weight: 500;"><b>ملاحظة هامة:</b> القيم الناتجة عن هذه الحاسبة هي قيم استرشادية وغير مُلزمة. يمتلك القاضي السلطة التقديرية الكاملة لتعديل هذه المبالغ بالزيادة أو النقصان بناءً على ظروف كل قضية على حدة.</p>
             
-            <h3>المعايير المعتمدة في الحساب</h3>
+            <h3>المعايير المعتمدة في الحساب (الإصدار المحدّث)</h3>
             <ul>
-                <li>يتم احتساب الدخل الصافي = الدخل الكلي - الالتزامات الشهرية</li>
-                <li>في حالة طلب بدل سكن (نفقة سكن)، تُضاف نسبة أساسية ثابتة وقدرها ٢٠٪ من الدخل الصافي.</li>
-                <li>نسبة نفقة الأطفال تختلف حسب طلب بدل السكن:
+                <li><b>الدخل الصافي:</b> الدخل الكلي - الالتزامات الشهرية الثابتة.</li>
+                <li><b>بدل السكن:</b>
                     <ul>
-                        <li>مع طلب بدل السكن: يتم احتساب ٥٪ × دخل الأب الصافي × معامل عمري لكل طفل.</li>
-                        <li>بدون طلب بدل السكن: يتم احتساب ٦.٥٪ × دخل الأب الصافي × معامل عمري لكل طفل.</li>
+                        <li><b>مع طلب بدل سكن مستقل:</b> يُحتسب 8% من الدخل الصافي.</li>
+                        <li><b>بدون طلب بدل سكن مستقل:</b> تُضاف نسبة 9% من الدخل الصافي ضمن النفقة العامة.</li>
                     </ul>
                 </li>
-                <li>معاملات الفئات العمرية:
+                <li><b>نفقة الأطفال:</b>
                     <ul>
-                        <li>الطفل الرضيع (أقل من سنتين): معامل 1.2</li>
-                        <li>الطفل الصغير (من 2 إلى 6 سنوات): معامل 1.0</li>
-                        <li>الطفل المدرسي (من 7 إلى 12 سنة): معامل 1.1</li>
-                        <li>المراهق (من 13 إلى 17 سنة): معامل 1.2</li>
-                        <li>الشاب (18 سنة فأكثر، غير متزوج أو غير عامل): معامل 0.8</li>
+                        <li><b>مع بدل سكن مستقل:</b> 5% من الدخل الصافي × المعامل العمري لكل طفل.</li>
+                        <li><b>بدون بدل سكن مستقل:</b> 6.5% من الدخل الصافي × المعامل العمري لكل طفل.</li>
                     </ul>
                 </li>
-                <li>يتم تحديد سقف أعلى للنسبة بـ٤٠٪ من دخل الأب الصافي مهما كان عدد الأطفال.</li>
-                <li>في حال وجود أبناء من زوجة أخرى، يتم خصم ٥٪ إضافية عن كل طفل منهم (بحد أقصى ٢٠٪ خصم إضافي).</li>
-                <li>يمكن إضافة زيادة موسمية في الأعياد وبداية الفصول الدراسية حسب المبلغ الأساسي للنفقة.</li>
+                <li><b>معاملات الأعمار المحدثة:</b>
+                    <ul>
+                        <li>أقل من سنتين: 1.2</li>
+                        <li>2 - 6 سنوات: 1.1</li>
+                        <li>7 - 12 سنة: 1.1</li>
+                        <li>13 - 17 سنة: 1.3</li>
+                        <li>18 فأكثر: 0.9</li>
+                    </ul>
+                </li>
+                <li><b>السقف العام للنفقات:</b>
+                    <ul>
+                        <li>لا يتجاوز 40% من الدخل الصافي كقاعدة عامة.</li>
+                        <li>يمكن رفعه إلى 45% إذا كان الدخل أقل من 600 ر.ع.</li>
+                        <li>يمكن خفضه إلى 35% إذا تجاوز الدخل 1500 ر.ع.</li>
+                    </ul>
+                </li>
+                <li><b>خصم الأبناء من زوجة أخرى:</b> خصم 3-5% لكل طفل، بحد أقصى 15% من إجمالي النفقة.</li>
+                <li><b>الزيادات الموسمية:</b> زيادة 10% للأعياد و 15% للعام الدراسي (لا تدخل ضمن السقف العام).</li>
+                <li><b>عامل الإقامة الجغرافية:</b> في المناطق مرتفعة الكلفة، تُضاف 2% من الدخل الصافي.</li>
             </ul>
         </div>
     </main>
@@ -574,6 +596,7 @@
             const anotherWifeField = document.getElementById('anotherWifeField');
             const hasChildrenFromAnotherWifeCheckbox = document.getElementById('hasChildrenFromAnotherWife');
             const otherChildrenField = document.getElementById('otherChildrenField');
+            const geographicLocationSelect = document.getElementById('geographicLocation');
             const calculateBtn = document.getElementById('calculateBtn');
             const resetBtn = document.getElementById('resetBtn');
             const resultContainer = document.getElementById('resultContainer');
@@ -591,13 +614,13 @@
             const otherChildrenDeductionElement = document.getElementById('otherChildrenDeduction');
             const finalCalculationElement = document.getElementById('finalCalculation');
             
-            // تعريف الفئات العمرية ومعاملاتها
+            // تعريف الفئات العمرية ومعاملاتها المحدثة
             const ageCategories = [
-                { id: 'infant', label: 'رضيع (أقل من سنتين)', factor: 1.2 },
-                { id: 'young', label: 'طفل صغير (من 2 إلى 6 سنوات)', factor: 1.0 },
-                { id: 'school', label: 'طفل مدرسي (من 7 إلى 12 سنة)', factor: 1.1 },
-                { id: 'teen', label: 'مراهق (من 13 إلى 17 سنة)', factor: 1.2 },
-                { id: 'adult', label: 'شاب (18 سنة فأكثر)', factor: 0.8 }
+                { id: 'infant', label: 'أقل من سنتين', factor: 1.2 },
+                { id: 'young', label: 'من 2 إلى 6 سنوات', factor: 1.1 },
+                { id: 'school', label: 'من 7 إلى 12 سنة', factor: 1.1 },
+                { id: 'teen', label: 'من 13 إلى 17 سنة', factor: 1.3 },
+                { id: 'adult', label: '18 فأكثر (غير متزوج/غير عامل)', factor: 0.9 }
             ];
             
             // إنشاء حقول الفئات العمرية بناءً على عدد الأبناء
@@ -754,6 +777,9 @@
                 // تحديد ما إذا كان هناك طلب للزيادة الموسمية
                 const includeSeasonalIncrease = includeSeasonalIncreaseCheckbox.checked;
                 
+                // تحديد المنطقة الجغرافية
+                const geographicLocation = document.getElementById('geographicLocation').value;
+                
                 // تحديد نسبة حساب نفقة الأطفال بناءً على خيار بدل السكن
                 const childPercentageBase = includeHousingAllowance ? 5 : 6.5;
                 
@@ -783,13 +809,33 @@
                 // حساب النسبة الإجمالية
                 let totalPercentage = totalChildrenPercentage;
                 
-                // إضافة نسبة بدل السكن إذا كان مطلوباً
+                // إضافة نسبة بدل السكن حسب النظام الجديد
+                let housingPercentage = 0;
                 if (includeHousingAllowance) {
-                    totalPercentage += 20; // إضافة 20% لبدل السكن
+                    housingPercentage = 8; // 8% لبدل السكن المستقل
+                } else {
+                    housingPercentage = 9; // 9% ضمن النفقة العامة
+                }
+                totalPercentage += housingPercentage;
+                
+                // إضافة عامل الإقامة الجغرافية
+                let geographicFactor = 0;
+                if (geographicLocation === 'high_cost') {
+                    geographicFactor = 2; // 2% للمناطق مرتفعة الكلفة
+                    totalPercentage += geographicFactor;
                 }
                 
-                // تحديد سقف أعلى للنسبة بـ40%
-                totalPercentage = Math.min(totalPercentage, 40);
+                // تحديد السقف الأعلى للنسبة حسب الدخل
+                let maxPercentage = 40; // القاعدة العامة
+                if (netIncome < 600) {
+                    maxPercentage = 45; // رفع السقف للدخل المنخفض
+                } else if (netIncome > 1500) {
+                    maxPercentage = 35; // خفض السقف للدخل المرتفع
+                }
+                
+                // تطبيق السقف الأعلى
+                const originalPercentage = totalPercentage;
+                totalPercentage = Math.min(totalPercentage, maxPercentage);
                 
                 // حساب المبلغ الأساسي
                 let baseAmount = (netIncome * totalPercentage) / 100;
@@ -847,18 +893,25 @@
                 baseCalculationElement.textContent = `المبلغ الأساسي: ${totalPercentage.toFixed(1)}% من الدخل الصافي (${netIncome.toFixed(2)} ر.ع) = ${baseAmount.toFixed(2)} ر.ع`;
                 
                 // خصم الأبناء من الزوجة الأخرى إن وجدوا
-                let finalAmount = baseAmount;
-                let otherChildrenDeductionText = 'لا يوجد خصم لأبناء الزوجة الأخرى';
+       // خصم الأبناء من زوجة أخرى
+                let otherChildrenDeduction = 0;
+                let otherChildrenDeductionText = 'لا يوجد خصم للأبناء من زوجة أخرى';
                 
                 if (hasAnotherWifeCheckbox.checked && hasChildrenFromAnotherWifeCheckbox.checked) {
-                    const otherChildrenCount = parseInt(document.getElementById('otherChildrenCount').value);
-                    if (!isNaN(otherChildrenCount) && otherChildrenCount > 0) {
-                        const otherChildrenPercentage = Math.min(otherChildrenCount * 5, 20); // 5% لكل طفل بحد أقصى 20%
-                        const otherChildrenDeduction = baseAmount * (otherChildrenPercentage / 100);
-                        finalAmount -= otherChildrenDeduction;
-                        otherChildrenDeductionText = `خصم أبناء الزوجة الأخرى (${otherChildrenCount} طفل): ${otherChildrenPercentage}% = ${otherChildrenDeduction.toFixed(2)} ر.ع`;
+                    const otherChildrenCount = parseInt(document.getElementById('otherChildrenCount').value) || 0;
+                    
+                    if (otherChildrenCount > 0) {
+                        // تحديد نسبة الخصم حسب عدد الأبناء (3-5% لكل طفل)
+                        let deductionPerChild = 3; // النسبة الأساسية
+                        if (otherChildrenCount >= 2) deductionPerChild = 4;
+                        if (otherChildrenCount >= 3) deductionPerChild = 5;
+                        
+                        // خصم بحد أقصى 15% (بدلاً من 20%)
+                        const otherChildrenPercentage = Math.min(otherChildrenCount * deductionPerChild, 15);
+                        otherChildrenDeduction = (baseAmount * otherChildrenPercentage) / 100;
+                        otherChildrenDeductionText = `خصم ${otherChildrenCount} أطفال من زوجة أخرى (${deductionPerChild}% × ${otherChildrenCount} = ${otherChildrenPercentage}%): ${otherChildrenDeduction.toFixed(2)} ر.ع`;
                     }
-                }
+                }}
                 
                 otherChildrenDeductionElement.textContent = otherChildrenDeductionText;
                 
@@ -866,31 +919,26 @@
                 finalCalculationElement.textContent = `المبلغ النهائي للنفقة: ${finalAmount.toFixed(2)} ر.ع`;
                 alimonyResultSpan.textContent = finalAmount.toFixed(2);
                 
-                // حساب الزيادة الموسمية إذا كانت مطلوبة
+                // حساب الزيادة الموسمية
+                let seasonalIncreaseAmount = 0;
                 if (includeSeasonalIncrease) {
-                    let seasonalIncreaseAmount = 0;
-                    
-                    // تحديد مبلغ الزيادة حسب القواعد المحددة الجديدة
-                    if (finalAmount <= 70) {
-                        // إذا كانت النفقة الأساسية 70 ر.ع أو أقل
-                        if (finalAmount <= 50) {
-                            seasonalIncreaseAmount = 70; // تزاد إلى 70 ر.ع
-                        } else {
-                            seasonalIncreaseAmount = 90; // تزاد إلى 90 ر.ع (بين 51 إلى 70 ر.ع)
-                        }
-                    } else {
-                        // إذا كانت النفقة الأساسية أكثر من 70 ر.ع
-                        seasonalIncreaseAmount = Math.round(finalAmount * 1.2); // تُحسب الزيادة بنسبة 20% من المبلغ الأساسي
-                    }
-                    
-                    // عرض الزيادة الموسمية
+                    // زيادة الأعياد: 10% + زيادة العام الدراسي: 15% = إجمالي 25%
+                    const holidayIncrease = finalAmount * 0.10; // 10% للأعياد
+                    const schoolYearIncrease = finalAmount * 0.15; // 15% للعام الدراسي
+                    seasonalIncreaseAmount = holidayIncrease + schoolYearIncrease;
                     seasonalIncreaseResultSpan.textContent = seasonalIncreaseAmount.toFixed(0);
                     seasonalIncreaseResult.style.display = 'block';
+                    
+                    // تحديث النص لتوضيح التفاصيل
+                    document.querySelector('#seasonalIncreaseResult').innerHTML = `
+                        <strong>الزيادات الموسمية:</strong><br>
+                        • زيادة الأعياد (10%): ${holidayIncrease.toFixed(0)} ر.ع<br>
+                        • زيادة العام الدراسي (15%): ${schoolYearIncrease.toFixed(0)} ر.ع<br>
+                        <strong>إجمالي الزيادات: <span>${seasonalIncreaseAmount.toFixed(0)}</span> ر.ع</strong>
+                    `;
                 } else {
-                    // إخفاء الزيادة الموسمية إذا لم تكن مطلوبة
                     seasonalIncreaseResult.style.display = 'none';
-                }
-                
+                }       
                 // إضافة شرح مبسط
                 let explanation = "تم احتساب النفقة التقديرية بناءً على: ";
                 
@@ -899,10 +947,15 @@
                 }
                 
                 if (includeHousingAllowance) {
-                    explanation += "إضافة بدل سكن بنسبة 20% من الدخل الصافي، ";
+                    explanation += `إضافة بدل سكن مستقل بنسبة ${housingPercentage}% من الدخل الصافي، `;
                     explanation += `ثم إضافة نسبة لكل طفل (5% × معامل عمري) حسب فئته العمرية، `;
                 } else {
-                    explanation += `احتساب نسبة لكل طفل (6.5% × معامل عمري) حسب فئته العمرية، `;
+                    explanation += `إضافة نسبة ${housingPercentage}% للسكن ضمن النفقة العامة، `;
+                    explanation += `ثم احتساب نسبة لكل طفل (6.5% × معامل عمري) حسب فئته العمرية، `;
+                }
+                
+                if (geographicLocation === 'high_cost') {
+                    explanation += `إضافة ${geographicFactor}% للمنطقة مرتفعة الكلفة، `;
                 }
                 
                 if (hasAnotherWifeCheckbox.checked && hasChildrenFromAnotherWifeCheckbox.checked) {
@@ -912,14 +965,19 @@
                     }
                 }
                 
-                explanation += "مع مراعاة أن الحد الأقصى للنسبة هو 40% من الدخل الصافي.";
+   explanation += `مع تطبيق سقف أعلى للنسبة بـ${maxPercentage}% من الدخل الصافي`;
+                
+                // إضافة تنبيه إذا تم تطبيق السقف
+                if (originalPercentage > maxPercentage) {
+                    explanation += ` (تم تخفيض النسبة من ${originalPercentage.toFixed(1)}% إلى ${maxPercentage}%)`;
+                }
+                explanation += `.`;
                 
                 if (includeSeasonalIncrease) {
-                    explanation += " كما تم إضافة بند للزيادة الموسمية في الأعياد وبداية الفصول الدراسية.";
+                    explanation += ` كما تُضاف زيادة موسمية قدرها ${seasonalIncreaseAmount.toFixed(0)} ر.ع للأعياد والعام الدراسي.`;
                 }
                 
-                simpleExplanation.textContent = explanation;
-                
+                simpleExplanation.textContent = explanation;             
                 // عرض النتيجة
                 resultContainer.style.display = 'block';
             });
