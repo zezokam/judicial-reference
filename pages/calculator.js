@@ -363,32 +363,44 @@ function showReasoningModal() {
         netIncome = 150;
     }
     
-    // إنشاء نص التسبيب بالصياغة السابقة
-    let reasoning = `وحيث أن المدعية تطلب الحكم لها بنفقة أطفالها من المدعى عليه، `;
-    reasoning += `وحيث أن دخل المدعى عليه الشهري يبلغ ${fatherIncome} ر.ع، `;
+    // إنشاء نص التسبيب بالصياغة القانونية المطلوبة
+    let reasoning = `ولما كانت المادة (١٣٠) من قانون الأحوال الشخصية تنص على أنه: "الحضانة من واجبات الأبوين معا ما دامت الزوجية قائمة بينهما، فإن افترقا فهي للأم، ثم للأب، ثم لأم الأم، ثم لأقرباء المحضون وفق الترتيب التالي: خالته، ثم جدته لأبيه وإن علت، ثم أخته ثم خالة أمه ثم عمة أمه ثم عمته، ثم عمة أبيه، ثم خالة أبيه، ثم بنت أخيه، ثم بنت أخته، ويقدم في الجميع الشقيق، ثم لأم، ثم لأب ما لم يقدر القاضي خلافه لمصلحة المحضون." وكانت المادة (١٣٢) من ذات القانون تنص على أنه: "إذا تركت الأم بيت الزوجية لخلاف أو غيره، فتكون الحضانة لها ما لم يقدر القاضي خلاف ذلك، وإذا كان المحضون صغيرا لا يستغني عن أمه تلزم بحضانته." كما أنه من المقرر قانونا بنص المادة (٤٤) من ذات القانون على أن: "تشمل النفقة الطعام والكسوة والمسكن والتطبيب وكل ما به مقومات حياة الانسان حسب العرف، وقد نصت المادة (٦٠/أ) من ذات القانون على أنه: " أ- نفقة الولد الصغير الذي لا مال له على أبيه، حتى تتزوج الفتاة، ويصل الفتى إلى الحد الذي يكتسب فيه أمثاله، ما لم يكن طالب علم يواصل دراسته بنجاح معتاد."، ومن المقرّر طبقاً للمادّة (٤٥) من ذات القانون أنه: "يراعى في تقدير النفقة سعة المنفق، وحال المنفق عليه، والوضع الاقتصادي زماناً ومكاناً، ومصداقاً لقوله تعالى (لِيُنفِقْ ذُو سَعَةٍ مِّن سَعَتِهِ وَمَن قُدِرَ عَلَيْهِ رِزْقُهُ فَلْيُنفِقْ مِمَّا آتَاهُ اللَّهُ لَا يُكَلِّفُ اللَّهُ نَفْساً إِلَّا مَا آتَاهَا سَيَجْعَلُ اللَّهُ بَعْدَ عُسْـرٍ يُسْـراً)، مما يؤكد من أنه بعد العسـر يأتي اليسـر والفرج، ولما كان كذلك وكان للمدعية `;
     
-    if (hasObligations && obligationsAmount > 0) {
-        reasoning += `وبعد خصم التزاماته المالية البالغة ${obligationsAmount} ر.ع يصبح الدخل الصافي ${Math.round(netIncome)} ر.ع، `;
+    // إضافة عدد الأبناء وأعمارهم
+    if (childrenCount === 1) {
+        reasoning += `طفل واحد`;
+    } else if (childrenCount === 2) {
+        reasoning += `طفلان`;
     } else {
-        reasoning += `وهو دخله الصافي، `;
+        reasoning += `${childrenCount} أطفال`;
     }
     
-    reasoning += `وحيث أن عدد الأطفال المستحقين للنفقة هو ${childrenCount}`;
-    reasoning += childrenCount === 1 ? '' : (childrenCount === 2 ? ' طفلان' : ' أطفال');
-    reasoning += `، وأعمارهم المختلفة التي تتطلب احتياجات متنوعة، `;
+    // إضافة تفاصيل الأعمار (سيتم تحديثها ديناميكياً حسب الإدخال)
+    reasoning += `، وإنه وتبعاً للظروف المعيشية الحالية وحاجة المحضونين وتلبية لاحتياجاتهم، وحيث `;
     
-    if (includeHousingAllowance) {
-        reasoning += `وحيث أن المدعية تطلب بدل سكن مستقل، `;
+    // إضافة تفاصيل الدخل والالتزامات
+    if (hasObligations && obligationsAmount > 0) {
+        reasoning += `قدم المدعى عليه للمحكمة ما يفيد استلامه لمرتب وقدره (${fatherIncome} ر.ع) `;
+        reasoning += fatherIncome < 200 ? 'مائة' : (fatherIncome < 1000 ? '' : 'ألف');
+        reasoning += ` ريال عماني وملتزم بسداد التزامات مالية بمبلغ وقدره (${obligationsAmount} ر.ع) `;
+        reasoning += obligationsAmount < 200 ? 'مائة' : '';
+        reasoning += ` ريال عماني`;
+    } else {
+        reasoning += `قدم المدعى عليه للمحكمة ما يفيد استلامه لمرتب وقدره (${fatherIncome} ر.ع) `;
+        reasoning += fatherIncome < 200 ? 'مائة' : (fatherIncome < 1000 ? '' : 'ألف');
+        reasoning += ` ريال عماني`;
     }
     
-    if (geographicLocation === 'high_cost') {
-        reasoning += `وحيث أن الإقامة في منطقة مرتفعة التكلفة، `;
-    }
-    
+    // إضافة تفاصيل الزوجة الأخرى إن وجدت
     if (hasChildrenFromAnotherWife && otherChildrenCount > 0) {
-        reasoning += `وحيث أن للمدعى عليه ${otherChildrenCount} `;
-        reasoning += otherChildrenCount === 1 ? 'طفل آخر' : (otherChildrenCount === 2 ? 'طفلان آخران' : 'أطفال آخرين');
-        reasoning += ` من زوجة أخرى، `;
+        reasoning += `، فضلاً على زواجه من أخرى ولديه منها `;
+        if (otherChildrenCount === 1) {
+            reasoning += `ولد`;
+        } else if (otherChildrenCount === 2) {
+            reasoning += `ولدان`;
+        } else {
+            reasoning += `${otherChildrenCount} أولاد`;
+        }
     }
     
     // حساب النفقة النهائية (نفس منطق الحساب الأساسي)
@@ -431,15 +443,27 @@ function showReasoningModal() {
         totalAlimony -= deductionAmount;
     }
     
-    reasoning += `وبتطبيق المعايير القضائية المحدثة في حساب النفقة التقديرية، `;
-    reasoning += `تقدر المحكمة النفقة الشهرية للأطفال بمبلغ ${Math.round(totalAlimony)} ر.ع`;
+    // إضافة الخاتمة القانونية مع المبلغ المحكوم به
+    reasoning += `، الأمر الذي تقضـي معه المحكمة بتقدير مبلغ النفقة `;
+    
+    if (includeHousingAllowance) {
+        reasoning += `الشاملة للمسكن `;
+    }
+    
+    reasoning += `شهريا (${Math.round(totalAlimony)} ر.ع) `;
+    
+    // تحويل المبلغ إلى كلمات (مبسط)
+    const amountInWords = convertNumberToArabicWords(Math.round(totalAlimony));
+    reasoning += `${amountInWords} ريال عماني`;
     
     if (includeSeasonalIncrease) {
         const seasonalAmount = totalAlimony * 0.25;
-        reasoning += `، وتزاد في الأعياد وبداية الفصول الدراسية إلى مبلغ وقدره ${Math.round(totalAlimony + seasonalAmount)} ر.ع`;
+        const totalWithSeasonal = Math.round(totalAlimony + seasonalAmount);
+        const seasonalInWords = convertNumberToArabicWords(totalWithSeasonal);
+        reasoning += ` وتزاد في الأعياد والمدارس إلى مبلغ (${totalWithSeasonal} ر.ع) ${seasonalInWords} ريال عماني`;
     }
     
-    reasoning += `.`;
+    reasoning += ` حسب ما سيرد في منطوق هذا القضاء.`;
     
     // عرض التسبيب في منطقة مخصصة
     const reasoningContainer = document.getElementById('reasoningResult');
@@ -461,6 +485,59 @@ function showReasoningModal() {
         // إذا لم توجد المنطقة المخصصة، استخدم alert كبديل
         alert(reasoning);
     }
+}
+
+// دالة تحويل الأرقام إلى كلمات عربية (مبسطة)
+function convertNumberToArabicWords(num) {
+    const ones = ['', 'واحد', 'اثنان', 'ثلاثة', 'أربعة', 'خمسة', 'ستة', 'سبعة', 'ثمانية', 'تسعة'];
+    const tens = ['', '', 'عشرون', 'ثلاثون', 'أربعون', 'خمسون', 'ستون', 'سبعون', 'ثمانون', 'تسعون'];
+    const hundreds = ['', 'مائة', 'مائتان', 'ثلاثمائة', 'أربعمائة', 'خمسمائة', 'ستمائة', 'سبعمائة', 'ثمانمائة', 'تسعمائة'];
+    
+    if (num === 0) return 'صفر';
+    if (num < 0) return 'سالب ' + convertNumberToArabicWords(-num);
+    
+    let result = '';
+    
+    // الآلاف
+    if (num >= 1000) {
+        const thousands = Math.floor(num / 1000);
+        if (thousands === 1) {
+            result += 'ألف ';
+        } else if (thousands === 2) {
+            result += 'ألفان ';
+        } else if (thousands < 11) {
+            result += ones[thousands] + ' آلاف ';
+        } else {
+            result += convertNumberToArabicWords(thousands) + ' ألف ';
+        }
+        num %= 1000;
+    }
+    
+    // المئات
+    if (num >= 100) {
+        const hundredsDigit = Math.floor(num / 100);
+        result += hundreds[hundredsDigit] + ' ';
+        num %= 100;
+    }
+    
+    // العشرات والآحاد
+    if (num >= 20) {
+        const tensDigit = Math.floor(num / 10);
+        result += tens[tensDigit];
+        num %= 10;
+        if (num > 0) {
+            result += ' و' + ones[num];
+        }
+    } else if (num >= 11) {
+        const teens = ['أحد عشر', 'اثنا عشر', 'ثلاثة عشر', 'أربعة عشر', 'خمسة عشر', 'ستة عشر', 'سبعة عشر', 'ثمانية عشر', 'تسعة عشر'];
+        result += teens[num - 11];
+    } else if (num === 10) {
+        result += 'عشرة';
+    } else if (num > 0) {
+        result += ones[num];
+    }
+    
+    return result.trim();
 }
 
 // دالة نسخ نص التسبيب
