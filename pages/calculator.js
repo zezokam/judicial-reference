@@ -363,40 +363,32 @@ function showReasoningModal() {
         netIncome = 150;
     }
     
-    // إنشاء نص التسبيب
-    let reasoning = `بناءً على الوقائع المعروضة والمستندات المقدمة، وبعد الاطلاع على أحكام قانون الأحوال الشخصية، تقرر المحكمة ما يلي:\n\n`;
-    
-    reasoning += `أولاً: ثبت للمحكمة أن دخل المدعى عليه الشهري يبلغ ${fatherIncome} ريال عماني، `;
+    // إنشاء نص التسبيب بالصياغة السابقة
+    let reasoning = `وحيث أن المدعية تطلب الحكم لها بنفقة أطفالها من المدعى عليه، `;
+    reasoning += `وحيث أن دخل المدعى عليه الشهري يبلغ ${fatherIncome} ر.ع، `;
     
     if (hasObligations && obligationsAmount > 0) {
-        reasoning += `وبعد خصم التزاماته المالية البالغة ${obligationsAmount} ريال عماني، يصبح دخله الصافي ${Math.round(netIncome)} ريال عماني.\n\n`;
+        reasoning += `وبعد خصم التزاماته المالية البالغة ${obligationsAmount} ر.ع يصبح الدخل الصافي ${Math.round(netIncome)} ر.ع، `;
     } else {
-        reasoning += `وهو دخله الصافي.\n\n`;
+        reasoning += `وهو دخله الصافي، `;
     }
     
-    reasoning += `ثانياً: بالنظر إلى عدد الأبناء المستحقين للنفقة وهم ${childrenCount} `;
-    reasoning += childrenCount === 1 ? 'طفل' : (childrenCount === 2 ? 'طفلان' : 'أطفال');
+    reasoning += `وحيث أن عدد الأطفال المستحقين للنفقة هو ${childrenCount}`;
+    reasoning += childrenCount === 1 ? '' : (childrenCount === 2 ? ' طفلان' : ' أطفال');
     reasoning += `، وأعمارهم المختلفة التي تتطلب احتياجات متنوعة، `;
     
     if (includeHousingAllowance) {
-        reasoning += `وحيث أن المدعية تطلب بدل سكن مستقل، فقد تم احتساب بدل السكن بنسبة 8% من الدخل الصافي، ونفقة كل طفل بنسبة 5% مضروبة في المعامل العمري المناسب.\n\n`;
-    } else {
-        reasoning += `وحيث أن المدعية لا تطلب بدل سكن مستقل، فقد تم إدراج بدل السكن ضمن النفقة العامة بنسبة 9%، ونفقة كل طفل بنسبة 6.5% مضروبة في المعامل العمري المناسب.\n\n`;
+        reasoning += `وحيث أن المدعية تطلب بدل سكن مستقل، `;
     }
     
     if (geographicLocation === 'high_cost') {
-        reasoning += `ثالثاً: نظراً لكون الإقامة في منطقة مرتفعة التكلفة، تم إضافة 2% إضافية لمراعاة ارتفاع تكاليف المعيشة.\n\n`;
+        reasoning += `وحيث أن الإقامة في منطقة مرتفعة التكلفة، `;
     }
     
     if (hasChildrenFromAnotherWife && otherChildrenCount > 0) {
-        const deductionPercentage = Math.min(otherChildrenCount * 5, 15);
-        reasoning += `رابعاً: حيث أن للمدعى عليه ${otherChildrenCount} `;
+        reasoning += `وحيث أن للمدعى عليه ${otherChildrenCount} `;
         reasoning += otherChildrenCount === 1 ? 'طفل آخر' : (otherChildrenCount === 2 ? 'طفلان آخران' : 'أطفال آخرين');
-        reasoning += ` من زوجة أخرى، فقد تم خصم ${deductionPercentage}% من إجمالي النفقة مراعاة لهذه الالتزامات.\n\n`;
-    }
-    
-    if (includeSeasonalIncrease) {
-        reasoning += `خامساً: تم إقرار زيادة موسمية بنسبة 25% (10% للأعياد و15% للعام الدراسي) لمواجهة المصاريف الإضافية في هذه المواسم.\n\n`;
+        reasoning += ` من زوجة أخرى، `;
     }
     
     // حساب النفقة النهائية (نفس منطق الحساب الأساسي)
@@ -439,17 +431,15 @@ function showReasoningModal() {
         totalAlimony -= deductionAmount;
     }
     
-    let finalAmount = totalAlimony;
+    reasoning += `وبتطبيق المعايير القضائية المحدثة في حساب النفقة التقديرية، `;
+    reasoning += `تقدر المحكمة النفقة الشهرية للأطفال بمبلغ ${Math.round(totalAlimony)} ر.ع`;
+    
     if (includeSeasonalIncrease) {
         const seasonalAmount = totalAlimony * 0.25;
-        finalAmount += seasonalAmount;
-        reasoning += `لذلك تحكم المحكمة بإلزام المدعى عليه بدفع نفقة شهرية قدرها ${Math.round(totalAlimony)} ريال عماني، مع زيادة موسمية قدرها ${Math.round(seasonalAmount)} ريال عماني، ليصبح المجموع ${Math.round(finalAmount)} ريال عماني في المواسم المحددة.\n\n`;
-    } else {
-        reasoning += `لذلك تحكم المحكمة بإلزام المدعى عليه بدفع نفقة شهرية قدرها ${Math.round(finalAmount)} ريال عماني.\n\n`;
+        reasoning += `، وتزاد في الأعياد وبداية الفصول الدراسية إلى مبلغ وقدره ${Math.round(totalAlimony + seasonalAmount)} ر.ع`;
     }
     
-    reasoning += `هذا الحكم قابل للاستئناف خلال المدة القانونية المحددة.\n\n`;
-    reasoning += `والله الموفق،،،\n\nالقاضي\n[اسم القاضي]\n[التاريخ]`;
+    reasoning += `.`;
     
     // عرض التسبيب في منطقة مخصصة
     const reasoningContainer = document.getElementById('reasoningResult');
