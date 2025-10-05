@@ -356,11 +356,20 @@
                                 <input type="checkbox" id="includeHousingAllowance">
                             </div>
                             <div class="percentage-info">
-                                <p><strong>ملاحظة:</strong> يؤثر طلب بدل السكن على طريقة الحساب:</p>
-                                <ul>
-                                    <li><strong>مع طلب بدل سكن مستقل:</strong> يُحتسب 8% من الدخل الصافي للسكن، بالإضافة إلى 5% × معامل العمر لكل طفل.</li>
-                                    <li><strong>بدون طلب بدل سكن مستقل:</strong> تُضاف نسبة 9% للسكن ضمن النفقة العامة، وتُحسب نفقة الأطفال بنسبة 6.5% × معامل العمر لكل طفل.</li>
-                                </ul>
+                                <p><strong>ملاحظة:</strong> يؤثر طلب بدل السكن على طريقة الحساب كما يلي:</p>
+                                
+                                <div style="margin: 10px 0; padding: 10px; background-color: #f8f9fa; border-radius: 5px;">
+                                    <p><strong>🔸 في حال طلب بدل سكن مستقل:</strong><br>
+                                    يُحتسب بدل السكن بنسبة 8% من الدخل الصافي.<br>
+                                    بعد ذلك، تُحسب نفقة الأطفال بنسبة 5% من الدخل الصافي × المعامل العمري لكل طفل.</p>
+                                    
+                                    <p><strong>🔸 في حال عدم طلب بدل سكن مستقل:</strong><br>
+                                    تُضاف نسبة 9% من الدخل الصافي ضمن النفقة العامة بدل السكن،<br>
+                                    وتُحسب نفقة الأطفال بنسبة 6.5% من الدخل الصافي × المعامل العمري لكل طفل.</p>
+                                    
+                                    <p style="color: #6c757d; font-size: 0.9em; margin-top: 10px;">
+                                    💡 <strong>القيم المعروضة استرشادية فقط، ويجوز للقاضي تعديلها وفق ظروف كل حالة.</strong></p>
+                                </div>
                             </div>
                         </div>
                         
@@ -476,6 +485,12 @@
                         
                         <div id="seasonalIncreaseResult" class="seasonal-increase-result" style="display: none;">
                             وتزاد في الأعياد وبداية كل فصل دراسي إلى مبلغ وقدره: <span>0</span> ر.ع
+                        </div>
+                        
+                        <!-- ملخص الحساب التفصيلي -->
+                        <div id="calculationSummary" class="calculation-summary" style="display: none; margin-top: 1rem; padding: 15px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                            <h4 style="color: #495057; margin-bottom: 10px; font-size: 1.1rem;">📊 ملخص الحساب:</h4>
+                            <div id="summaryDetails" style="font-size: 0.95rem; line-height: 1.6;"></div>
                         </div>
                         
                         <div class="buttons-container" style="margin-top: 1.5rem;">
@@ -977,7 +992,64 @@
                     explanation += ` كما تُضاف زيادة موسمية قدرها ${seasonalIncreaseAmount.toFixed(0)} ر.ع للأعياد والعام الدراسي.`;
                 }
                 
-                simpleExplanation.textContent = explanation;             
+                simpleExplanation.textContent = explanation;
+                
+                // إنشاء ملخص الحساب التفصيلي
+                const calculationSummary = document.getElementById('calculationSummary');
+                const summaryDetails = document.getElementById('summaryDetails');
+                
+                let summaryHTML = '';
+                
+                // بدل السكن
+                if (includeHousingAllowance) {
+                    const housingAmount = netIncome * (housingPercentage / 100);
+                    summaryHTML += `<div style="margin-bottom: 8px;"><strong>🏠 بدل السكن:</strong> ${housingAmount.toFixed(0)} ر.ع (${housingPercentage}% من الدخل الصافي)</div>`;
+                }
+                
+                // نفقة الأطفال
+                summaryHTML += '<div style="margin-bottom: 8px;"><strong>👶 نفقة الأطفال:</strong></div>';
+                for (let i = 0; i < childrenCount; i++) {
+                    const childAgeSelect = document.getElementById(`childAge_${i}`);
+                    if (childAgeSelect) {
+                        const selectedOption = childAgeSelect.options[childAgeSelect.selectedIndex];
+                        const factor = parseFloat(selectedOption.getAttribute('data-factor'));
+                        const childPercentage = includeHousingAllowance ? 5 : 6.5;
+                        const childAmount = netIncome * (childPercentage / 100) * factor;
+                        summaryHTML += `<div style="margin-left: 20px; margin-bottom: 5px;">• الطفل ${i + 1} (${selectedOption.textContent}): ${childAmount.toFixed(0)} ر.ع</div>`;
+                    }
+                }
+                
+                // العوامل الإضافية
+                if (geographicLocation === 'high_cost') {
+                    const geoAmount = netIncome * (geographicFactor / 100);
+                    summaryHTML += `<div style="margin-bottom: 8px;"><strong>🌍 عامل المنطقة الجغرافية:</strong> ${geoAmount.toFixed(0)} ر.ع (${geographicFactor}% إضافية)</div>`;
+                }
+                
+                if (hasAnotherWifeCheckbox.checked && hasChildrenFromAnotherWifeCheckbox.checked) {
+                    const otherChildrenCount = parseInt(document.getElementById('otherChildrenCount').value);
+                    const deductionPercentage = Math.min(otherChildrenCount * 5, 15);
+                    const deductionAmount = finalAmount * (deductionPercentage / 100);
+                    summaryHTML += `<div style="margin-bottom: 8px; color: #dc3545;"><strong>➖ خصم الأبناء من زوجة أخرى:</strong> -${deductionAmount.toFixed(0)} ر.ع (${deductionPercentage}%)</div>`;
+                }
+                
+                // المجموع النهائي
+                summaryHTML += `<hr style="margin: 10px 0; border: none; border-top: 1px solid #dee2e6;">`;
+                summaryHTML += `<div style="font-weight: bold; color: #28a745; font-size: 1.05rem;"><strong>💰 المجموع النهائي:</strong> ${finalAmount.toFixed(0)} ر.ع</div>`;
+                
+                // الزيادات الموسمية
+                if (includeSeasonalIncrease) {
+                    const holidayIncrease = finalAmount * 0.10;
+                    const schoolYearIncrease = finalAmount * 0.15;
+                    summaryHTML += `<div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed #dee2e6;">`;
+                    summaryHTML += `<div style="color: #17a2b8;"><strong>🎉 الزيادات الموسمية:</strong></div>`;
+                    summaryHTML += `<div style="margin-left: 20px; margin-bottom: 5px;">• زيادة الأعياد: +${holidayIncrease.toFixed(0)} ر.ع (10%)</div>`;
+                    summaryHTML += `<div style="margin-left: 20px; margin-bottom: 5px;">• زيادة العام الدراسي: +${schoolYearIncrease.toFixed(0)} ر.ع (15%)</div>`;
+                    summaryHTML += `</div>`;
+                }
+                
+                summaryDetails.innerHTML = summaryHTML;
+                calculationSummary.style.display = 'block';
+                
                 // عرض النتيجة
                 resultContainer.style.display = 'block';
             });
@@ -994,6 +1066,7 @@
                 otherChildrenField.style.display = 'none';
                 resultContainer.style.display = 'none';
                 seasonalIncreaseResult.style.display = 'none';
+                document.getElementById('calculationSummary').style.display = 'none';
             });
             
             // تفعيل القائمة المتنقلة للهواتف
