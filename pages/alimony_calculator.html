@@ -591,43 +591,15 @@
         </div>
     </footer>
 
+    <script src="calculator.js"></script>
     <script>
+        // كود التسبيب ونسخ النص
         document.addEventListener('DOMContentLoaded', function() {
-            // الحصول على عناصر النموذج
-            const childrenCountInput = document.getElementById('childrenCount');
-            const childrenAgeContainer = document.getElementById('childrenAgeContainer');
-            const childrenAgeFields = document.getElementById('childrenAgeFields');
-            const includeHousingAllowanceCheckbox = document.getElementById('includeHousingAllowance');
-            const includeSeasonalIncreaseCheckbox = document.getElementById('includeSeasonalIncrease');
-            const hasObligationsCheckbox = document.getElementById('hasObligations');
-            const obligationsField = document.getElementById('obligationsField');
-            const obligationsAmountInput = document.getElementById('obligationsAmount');
-            const highObligationsAlert = document.getElementById('highObligationsAlert');
-            const fullDeductionRadio = document.getElementById('fullDeduction');
-            const manualDeductionRadio = document.getElementById('manualDeduction');
-            const manualDeductionField = document.getElementById('manualDeductionField');
-            const manualDeductionAmountInput = document.getElementById('manualDeductionAmount');
-            const hasAnotherWifeCheckbox = document.getElementById('hasAnotherWife');
-            const anotherWifeField = document.getElementById('anotherWifeField');
-            const hasChildrenFromAnotherWifeCheckbox = document.getElementById('hasChildrenFromAnotherWife');
-            const otherChildrenField = document.getElementById('otherChildrenField');
-            const geographicLocationSelect = document.getElementById('geographicLocation');
-            const calculateBtn = document.getElementById('calculateBtn');
-            const resetBtn = document.getElementById('resetBtn');
+            const showReasoningBtn = document.getElementById('showReasoningBtn');
+            const copyReasoningBtn = document.getElementById('copyReasoningBtn');
+            const reasoningContainer = document.getElementById('reasoningContainer');
+            const reasoningText = document.getElementById('reasoningText');
             const resultContainer = document.getElementById('resultContainer');
-            const netIncomeResultSpan = document.querySelector('#netIncomeResult span');
-            const alimonyResultSpan = document.querySelector('#alimonyResult span');
-            const seasonalIncreaseResult = document.getElementById('seasonalIncreaseResult');
-            const seasonalIncreaseResultSpan = document.querySelector('#seasonalIncreaseResult span');
-            const childrenCalculationDetails = document.getElementById('childrenCalculationDetails');
-            const simpleExplanation = document.getElementById('simpleExplanation');
-            
-            // تفاصيل الحساب
-            const housingAllowanceElement = document.getElementById('housingAllowance');
-            const baseCalculationElement = document.getElementById('baseCalculation');
-            const obligationsDeductionElement = document.getElementById('obligationsDeduction');
-            const otherChildrenDeductionElement = document.getElementById('otherChildrenDeduction');
-            const finalCalculationElement = document.getElementById('finalCalculation');
             
             // تعريف الفئات العمرية ومعاملاتها المحدثة
             const ageCategories = [
@@ -1247,10 +1219,75 @@
                 });
             });
             
-            // إخفاء قسم التسبيب عند إعادة تعيين النموذج
-            resetBtn.addEventListener('click', function() {
-                reasoningContainer.style.display = 'none';
-            });
+            // دالة توليد نص التسبيب
+            function generateReasoning() {
+                const fatherIncome = parseFloat(document.getElementById('fatherIncome').value);
+                const childrenCount = parseInt(document.getElementById('childrenCount').value);
+                const includeHousingAllowance = document.getElementById('includeHousingAllowance').checked;
+                const includeSeasonalIncrease = document.getElementById('includeSeasonalIncrease').checked;
+                const netIncomeResultSpan = document.querySelector('#netIncomeResult span');
+                const alimonyResultSpan = document.querySelector('#alimonyResult span');
+                const seasonalIncreaseResultSpan = document.querySelector('#seasonalIncreaseResult span');
+                
+                const netIncome = parseFloat(netIncomeResultSpan.textContent);
+                const finalAmount = parseFloat(alimonyResultSpan.textContent);
+                const seasonalIncreaseAmount = includeSeasonalIncrease ? (parseFloat(seasonalIncreaseResultSpan.textContent) - finalAmount) : 0;
+                
+                let reasoningText = `وحيث أن المدعية تطلب الحكم لها بنفقة أطفالها من المدعى عليه، `;
+                reasoningText += `وحيث أن دخل المدعى عليه الشهري يبلغ ${fatherIncome} ر.ع، `;
+                reasoningText += `وبعد خصم الالتزامات المالية يصبح الدخل الصافي ${netIncome} ر.ع، `;
+                reasoningText += `وحيث أن عدد الأطفال المستحقين للنفقة هو ${childrenCount}، `;
+                
+                if (includeHousingAllowance) {
+                    reasoningText += `وحيث أن المدعية تطلب بدل سكن مستقل، `;
+                }
+                
+                reasoningText += `وبتطبيق المعايير القضائية المعتمدة في حساب النفقة التقديرية، `;
+                reasoningText += `تقدر المحكمة النفقة الشهرية للأطفال بمبلغ ${finalAmount} ر.ع`;
+                
+                if (includeSeasonalIncrease) {
+                    reasoningText += `, وتزاد في الأعياد وبداية الفصول الدراسية إلى مبلغ وقدره ${(finalAmount + seasonalIncreaseAmount).toFixed(0)} ر.ع`;
+                }
+                
+                reasoningText += `.`;
+                
+                return reasoningText;
+            }
+            
+            // عرض التسبيب المقترح للحكم
+            if (showReasoningBtn) {
+                showReasoningBtn.addEventListener('click', function() {
+                    if (resultContainer.style.display === 'none') {
+                        alert('يرجى حساب النفقة أولاً قبل عرض التسبيب المقترح');
+                        return;
+                    }
+                    
+                    const reasoning = generateReasoning();
+                    reasoningText.textContent = reasoning;
+                    reasoningContainer.style.display = 'block';
+                    reasoningContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+            
+            // نسخ نص التسبيب
+            if (copyReasoningBtn) {
+                copyReasoningBtn.addEventListener('click', function() {
+                    const textToCopy = reasoningText.textContent;
+                    navigator.clipboard.writeText(textToCopy).then(function() {
+                        const originalText = copyReasoningBtn.textContent;
+                        copyReasoningBtn.textContent = 'تم النسخ!';
+                        copyReasoningBtn.style.backgroundColor = '#28a745';
+                        
+                        setTimeout(function() {
+                            copyReasoningBtn.textContent = originalText;
+                            copyReasoningBtn.style.backgroundColor = '#4682b4';
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error('فشل نسخ النص: ', err);
+                        alert('حدث خطأ أثناء محاولة نسخ النص');
+                    });
+                });
+            }
         });
     </script>
     
