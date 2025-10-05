@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة النفقة التقديرية - المرجع القضائي</title>
+    
+    <!-- وسوم معاينة الرابط (Open Graph) -->
+    <meta property="og:title" content="حاسبة النفقة التقديرية - المرجع القضائي" />
+    <meta property="og:description" content="أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة" />
+    <meta property="og:image" content="https://alkamali.uk/images/thumbnails/alimony-calculator-og-image.jpg" />
+    <meta property="og:url" content="https://alkamali.uk/pages/alimony_calculator.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_OM" />
+    
+    <!-- وسوم تويتر كاردز -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="حاسبة النفقة التقديرية - المرجع القضائي" />
+    <meta name="twitter:description" content="أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة" />
+    <meta name="twitter:image" content="https://alkamali.uk/images/thumbnails/alimony-calculator-og-image.jpg" />
+    
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/calculator.css">
+    <!-- Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts - Tajawal -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group label {
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+        
+        .conditional-field {
+            margin-top: 1rem;
+            padding-right: 1.5rem;
+            border-right: 2px solid var(--primary-color);
+            display: none;
+        }
+        
+        .result-amount {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: bold;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        
+        .calculation-details {
+            background-color: var(--bg-light);
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            overflow-x: auto; /* لضمان عدم تجاوز الجدول لحدود الشاشة */
+        }
+        
+        .btn-calculate {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .btn-calculate:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-reset {
+            background-color: var(--text-light);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-right: 1rem;
+        }
+        
+        .btn-reset:hover {
+            background-color: var(--text-dark);
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap; /* للتوافق مع الشاشات الصغيرة */
+            gap: 1rem; /* مسافة بين الأزرار عند التفاف العناصر */
+        }
+        
+        .children-age-container {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background-color: var(--bg-light);
+            border-radius: var(--border-radius);
+            border-right: 2px solid var(--primary-color);
+        }
+        
+        .child-age-field {
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .child-age-field h4 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .age-factor-info {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background-color: #f8f1e9;
+            border-radius: var(--border-radius);
+            font-size: 0.9rem;
+        }
+        
+        .age-factor-info h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .age-factor-info ul {
+            margin: 0;
+            padding-right: 1.5rem;
+        }
+        
+        .calculation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calculation-table th, .calculation-table td {
+            padding: 0.5rem;
+            text-align: right;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .calculation-table th {
+            background-color: var(--bg-alt);
+            font-weight: 500;
+        }
+        
+        .calculation-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .calculation-table .total-row {
+            font-weight: bold;
+            background-color: #f8f1e9;
+        }
+        
+        /* تحسينات للتوافق مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .calculation-table {
+                font-size: 0.9rem;
+            }
+            
+            .calculation-table th, .calculation-table td {
+                padding: 0.4rem;
+            }
+            
+            .result-amount {
+                font-size: 1.7rem;
+            }
+            
+            .child-age-field {
+                padding: 0.6rem;
+            }
+        }
+        
+        /* تمييز خيار بدل السكن */
+        .housing-option {
+            background-color: #f8f1e9;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            border-right: 3px solid var(--primary-color);
+        }
+        
+        .housing-option h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* تمييز خيار الزيادة الموسمية */
+        .seasonal-increase-option {
+            background-color: #f0f8ff;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1.5rem;
+            border-right: 3px solid #4682b4;
+        }
+        
+        .seasonal-increase-option h3 {
+            margin-top: 0;
+            color: #4682b4;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* تحسين عرض الشرح المختصر */
+        .simple-explanation {
+            background-color: #f0f8ff;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            border-right: 2px solid #4682b4;
+        }
+        
+        /* تمييز الزيادة الموسمية في النتائج */
+        .seasonal-increase-result {
+            background-color: #f0f8ff;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            border-right: 3px solid #4682b4;
+            font-weight: 500;
+        }
+        
+        /* تمييز معلومات النسب المختلفة */
+        .percentage-info {
+            background-color: #e8f4f8;
+            padding: 0.75rem;
+            border-radius: var(--border-radius);
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            border-right: 2px solid #4682b4;
+        }
+        
+        /* تنبيه الالتزامات المالية العالية */
+        .high-obligations-alert {
+            background-color: #fff3e0;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            border-right: 3px solid #ff9800;
+            display: none;
+        }
+        
+        .high-obligations-alert h4 {
+            margin-top: 0;
+            color: #e65100;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .radio-group {
+            margin: 0.75rem 0;
+        }
+        
+        .radio-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            padding-right: 1.5rem;
+            position: relative;
+        }
+        
+        .radio-group input[type="radio"] {
+            position: absolute;
+            right: 0;
+            top: 0.25rem;
+        }
+        
+        .manual-deduction-field {
+            margin-top: 1rem;
+            padding-right: 1.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="../index.html" class="logo">
+                <img src="../images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
+                <h1>المرجع القضائي</h1>
+            </a>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links">
+                <li><a href="../index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
+                <li><a href="alimony_calculator.html"><i class="fas fa-money-bill-wave icon"></i>حاسبة النفقة التقديرية</a></li>
+                <li><a href="calculator.html"><i class="fas fa-calculator icon"></i>حاسبة مكافأة نهاية الخدمة</a></li>
+                <li><a href="https://azzan.notion.site/" target="_blank"><i class="fas fa-book icon"></i>مُعين: مراجع ونماذج قضائية</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle icon"></i>نبذة</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope icon"></i>تواصل معنا</a></li>
+                <li><a href="login.html"><i class="fas fa-user icon"></i>تسجيل الدخول</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">حاسبة النفقة التقديرية</h1>
+            <p class="page-description">أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة</p>
+        </div>
+
+        <div class="content-section">
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <form id="alimonyForm">
+                        <div class="form-group">
+                            <label for="fatherIncome">الدخل الشهري للأب (ر.ع):</label>
+                            <input type="number" id="fatherIncome" class="form-control" min="0" required>
+                        </div>
+                        
+                        <div class="housing-option">
+                            <h3>نفقة السكن</h3>
+                            <div class="checkbox-group">
+                                <label for="includeHousingAllowance">هل تطلب المدعية بدل سكن (نفقة سكن)؟</label>
+                                <input type="checkbox" id="includeHousingAllowance">
+                            </div>
+                            <div class="percentage-info">
+                                <p><strong>ملاحظة:</strong> اختيار بدل السكن يؤثر على نسبة حساب نفقة الأطفال:</p>
+                                <ul>
+                                    <li>مع بدل السكن: تُضاف نسبة 20% للسكن، ونسبة 5% × معامل العمر لكل طفل</li>
+                                    <li>بدون بدل السكن: تُحسب نفقة الأطفال بنسبة 6.5% × معامل العمر لكل طفل</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="childrenCount">عدد الأبناء من الزوجة المطلقة:</label>
+                            <input type="number" id="childrenCount" class="form-control" min="1" required>
+                        </div>
+                        
+                        <div id="childrenAgeContainer" class="children-age-container" style="display: none;">
+                            <h3>الفئات العمرية للأبناء</h3>
+                            <div id="childrenAgeFields"></div>
+                            
+                            <div class="age-factor-info">
+                                <h4>معاملات الفئات العمرية:</h4>
+                                <ul>
+                                    <li>رضيع (أقل من سنتين): معامل 1.2</li>
+                                    <li>طفل صغير (من 2 إلى 6 سنوات): معامل 1.0</li>
+                                    <li>طفل مدرسي (من 7 إلى 12 سنة): معامل 1.1</li>
+                                    <li>مراهق (من 13 إلى 17 سنة): معامل 1.2</li>
+                                    <li>شاب (18 سنة فأكثر): معامل 0.8</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <label for="hasObligations">هل على الأب التزامات مالية كبيرة (ديون أو أقساط)؟</label>
+                                <input type="checkbox" id="hasObligations">
+                            </div>
+                            
+                            <div id="obligationsField" class="conditional-field">
+                                <div class="form-group">
+                                    <label for="obligationsAmount">مقدار الالتزامات الشهرية (ر.ع):</label>
+                                    <input type="number" id="obligationsAmount" class="form-control" min="0">
+                                </div>
+                                
+                                <div id="highObligationsAlert" class="high-obligations-alert">
+                                    <h4>تنبيه: الالتزامات المالية مرتفعة</h4>
+                                    <p>المبلغ المُدخل للالتزامات يشكل أكثر من ٦٠٪ من دخل الأب. هل ترغب في خصم المبلغ بالكامل؟ أم تحديد مقدار الخصم يدويًا؟</p>
+                                    
+                                    <div class="radio-group">
+                                        <label>
+                                            <input type="radio" name="obligationsOption" id="fullDeduction" value="full" checked>
+                                            خصم الالتزامات بالكامل كما هي مدخلة
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="obligationsOption" id="manualDeduction" value="manual">
+                                            تحديد مبلغ الخصم يدويًا
+                                        </label>
+                                    </div>
+                                    
+                                    <div id="manualDeductionField" class="manual-deduction-field">
+                                        <div class="form-group">
+                                            <label for="manualDeductionAmount">أدخل المبلغ الذي ترغب بخصمه من الدخل (ر.ع):</label>
+                                            <input type="number" id="manualDeductionAmount" class="form-control" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <label for="hasAnotherWife">هل الأب متزوج من امرأة أخرى؟</label>
+                                <input type="checkbox" id="hasAnotherWife">
+                            </div>
+                            
+                            <div id="anotherWifeField" class="conditional-field">
+                                <div class="checkbox-group">
+                                    <label for="hasChildrenFromAnotherWife">هل لديه أبناء من الزوجة الأخرى؟</label>
+                                    <input type="checkbox" id="hasChildrenFromAnotherWife">
+                                </div>
+                                
+                                <div id="otherChildrenField" class="conditional-field">
+                                    <div class="form-group">
+                                        <label for="otherChildrenCount">عدد الأبناء من الزوجة الأخرى:</label>
+                                        <input type="number" id="otherChildrenCount" class="form-control" min="1">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="seasonal-increase-option">
+                            <h3>الزيادة الموسمية</h3>
+                            <div class="checkbox-group">
+                                <label for="includeSeasonalIncrease">يشمل الحكم زيادة في الأعياد والمدارس</label>
+                                <input type="checkbox" id="includeSeasonalIncrease">
+                            </div>
+                        </div>
+                        
+                        <div class="buttons-container">
+                            <button type="button" id="resetBtn" class="btn-reset">إعادة تعيين</button>
+                            <button type="button" id="calculateBtn" class="btn-calculate">حساب النفقة</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="resultContainer" class="result-container">
+                    <div class="result-box">
+                        <h3>نتيجة الحساب</h3>
+                        <div id="netIncomeResult" class="result-amount" style="font-size: 1.5rem; color: #4682b4;">الدخل الصافي بعد خصم الالتزامات: <span>0</span> ر.ع</div>
+                        <div class="result-amount" id="alimonyResult">النفقة التقديرية: <span>0</span> ر.ع</div>
+                        
+                        <div id="seasonalIncreaseResult" class="seasonal-increase-result" style="display: none;">
+                            وتزاد في الأعياد وبداية كل فصل دراسي إلى مبلغ وقدره: <span>0</span> ر.ع
+                        </div>
+                        
+                        <div class="buttons-container" style="margin-top: 1.5rem;">
+                            <button type="button" id="showReasoningBtn" class="btn-calculate" style="background-color: #4682b4;">عرض التسبيب المقترح للحكم</button>
+                        </div>
+                        
+                        <div id="reasoningContainer" class="calculation-details" style="display: none; margin-top: 1.5rem; background-color: #f9f9f9; border-right: 3px solid #4682b4;">
+                            <h4 style="color: #4682b4;">التسبيب المقترح للحكم:</h4>
+                            <div id="reasoningText" style="line-height: 1.8; padding: 1rem; white-space: pre-line;"></div>
+                            <div class="buttons-container" style="margin-top: 1rem; justify-content: flex-start;">
+                                <button type="button" id="copyReasoningBtn" class="btn-calculate" style="background-color: #4682b4; padding: 0.5rem 1rem; font-size: 0.9rem;">نسخ النص</button>
+                            </div>
+                        </div>
+                        
+                        <div class="calculation-details" id="calculationDetails">
+                            <h4>تفاصيل الحساب:</h4>
+                            <div id="childrenCalculationDetails"></div>
+                            <p id="housingAllowance"></p>
+                            <p id="baseCalculation"></p>
+                            <p id="obligationsDeduction"></p>
+                            <p id="otherChildrenDeduction"></p>
+                            <p id="finalCalculation"></p>
+                            
+                            <div class="simple-explanation" id="simpleExplanation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="result-note">
+                        <p><strong>ملاحظة:</strong> هذه الحاسبة تقدم تقديرًا للنفقة بناءً على المعايير المعتمدة، وقد تختلف النفقة الفعلية حسب ظروف كل حالة والسلطة التقديرية للقاضي.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>معلومات عن حساب النفقة التقديرية</h2>
+            <p>تعتمد النفقة التقديرية للأبناء على عدة عوامل أهمها دخل الأب وعدد الأبناء المستحقين للنفقة وأعمارهم، مع مراعاة الظروف الخاصة مثل الالتزامات المالية الأخرى والمسؤوليات العائلية.</p>
+            
+            <p class="judge-discretion-note" style="background-color: #f0f8ff; padding: 1rem; border-radius: var(--border-radius); border-right: 3px solid #4682b4; margin-bottom: 1.5rem; font-weight: 500;">النموذج لا يُلزم القاضي بالفصل بين السكني والمعيشة، بل يوفّر له وسيلة لمعرفة أثر إدراج بدل السكن في التقدير العام. ويبقى القرار النهائي له، وفقًا لظروف الدعوى والبيّنة المقدمة.</p>
+            
+            <h3>المعايير المعتمدة في الحساب</h3>
+            <ul>
+                <li>يتم احتساب الدخل الصافي = الدخل الكلي - الالتزامات الشهرية</li>
+                <li>في حالة طلب بدل سكن (نفقة سكن)، تُضاف نسبة أساسية ثابتة وقدرها ٢٠٪ من الدخل الصافي.</li>
+                <li>نسبة نفقة الأطفال تختلف حسب طلب بدل السكن:
+                    <ul>
+                        <li>مع طلب بدل السكن: يتم احتساب ٥٪ × دخل الأب الصافي × معامل عمري لكل طفل.</li>
+                        <li>بدون طلب بدل السكن: يتم احتساب ٦.٥٪ × دخل الأب الصافي × معامل عمري لكل طفل.</li>
+                    </ul>
+                </li>
+                <li>معاملات الفئات العمرية:
+                    <ul>
+                        <li>الطفل الرضيع (أقل من سنتين): معامل 1.2</li>
+                        <li>الطفل الصغير (من 2 إلى 6 سنوات): معامل 1.0</li>
+                        <li>الطفل المدرسي (من 7 إلى 12 سنة): معامل 1.1</li>
+                        <li>المراهق (من 13 إلى 17 سنة): معامل 1.2</li>
+                        <li>الشاب (18 سنة فأكثر، غير متزوج أو غير عامل): معامل 0.8</li>
+                    </ul>
+                </li>
+                <li>يتم تحديد سقف أعلى للنسبة بـ٤٠٪ من دخل الأب الصافي مهما كان عدد الأطفال.</li>
+                <li>في حال وجود أبناء من زوجة أخرى، يتم خصم ٥٪ إضافية عن كل طفل منهم (بحد أقصى ٢٠٪ خصم إضافي).</li>
+                <li>يمكن إضافة زيادة موسمية في الأعياد وبداية الفصول الدراسية حسب المبلغ الأساسي للنفقة.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">المرجع القضائي</div>
+            <ul class="footer-links">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="alimony_calculator.html">حاسبة النفقة التقديرية</a></li>
+                <li><a href="calculator.html">حاسبة مكافأة نهاية الخدمة</a></li>
+                <li><a href="https://azzan.notion.site/">مُعين: مراجع ونماذج قضائية</a></li>
+                <li><a href="about.html">نبذة</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+            </ul>
+            <div class="social-icons">
+                <a href="alimony_calculator.html#"><i class="fab fa-twitter"></i></a>
+                <a href="alimony_calculator.html#"><i class="fab fa-linkedin"></i></a>
+                <a href="alimony_calculator.html#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 القاضي عزان الكمالي - جميع الحقوق محفوظة
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // الحصول على عناصر النموذج
+            const childrenCountInput = document.getElementById('childrenCount');
+            const childrenAgeContainer = document.getElementById('childrenAgeContainer');
+            const childrenAgeFields = document.getElementById('childrenAgeFields');
+            const includeHousingAllowanceCheckbox = document.getElementById('includeHousingAllowance');
+            const includeSeasonalIncreaseCheckbox = document.getElementById('includeSeasonalIncrease');
+            const hasObligationsCheckbox = document.getElementById('hasObligations');
+            const obligationsField = document.getElementById('obligationsField');
+            const obligationsAmountInput = document.getElementById('obligationsAmount');
+            const highObligationsAlert = document.getElementById('highObligationsAlert');
+            const fullDeductionRadio = document.getElementById('fullDeduction');
+            const manualDeductionRadio = document.getElementById('manualDeduction');
+            const manualDeductionField = document.getElementById('manualDeductionField');
+            const manualDeductionAmountInput = document.getElementById('manualDeductionAmount');
+            const hasAnotherWifeCheckbox = document.getElementById('hasAnotherWife');
+            const anotherWifeField = document.getElementById('anotherWifeField');
+            const hasChildrenFromAnotherWifeCheckbox = document.getElementById('hasChildrenFromAnotherWife');
+            const otherChildrenField = document.getElementById('otherChildrenField');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const resultContainer = document.getElementById('resultContainer');
+            const netIncomeResultSpan = document.querySelector('#netIncomeResult span');
+            const alimonyResultSpan = document.querySelector('#alimonyResult span');
+            const seasonalIncreaseResult = document.getElementById('seasonalIncreaseResult');
+            const seasonalIncreaseResultSpan = document.querySelector('#seasonalIncreaseResult span');
+            const childrenCalculationDetails = document.getElementById('childrenCalculationDetails');
+            const simpleExplanation = document.getElementById('simpleExplanation');
+            
+            // تفاصيل الحساب
+            const housingAllowanceElement = document.getElementById('housingAllowance');
+            const baseCalculationElement = document.getElementById('baseCalculation');
+            const obligationsDeductionElement = document.getElementById('obligationsDeduction');
+            const otherChildrenDeductionElement = document.getElementById('otherChildrenDeduction');
+            const finalCalculationElement = document.getElementById('finalCalculation');
+            
+            // تعريف الفئات العمرية ومعاملاتها
+            const ageCategories = [
+                { id: 'infant', label: 'رضيع (أقل من سنتين)', factor: 1.2 },
+                { id: 'young', label: 'طفل صغير (من 2 إلى 6 سنوات)', factor: 1.0 },
+                { id: 'school', label: 'طفل مدرسي (من 7 إلى 12 سنة)', factor: 1.1 },
+                { id: 'teen', label: 'مراهق (من 13 إلى 17 سنة)', factor: 1.2 },
+                { id: 'adult', label: 'شاب (18 سنة فأكثر)', factor: 0.8 }
+            ];
+            
+            // إنشاء حقول الفئات العمرية بناءً على عدد الأبناء
+            childrenCountInput.addEventListener('change', function() {
+                const childrenCount = parseInt(this.value);
+                
+                if (isNaN(childrenCount) || childrenCount <= 0) {
+                    childrenAgeContainer.style.display = 'none';
+                    childrenAgeFields.innerHTML = '';
+                    return;
+                }
+                
+                childrenAgeFields.innerHTML = '';
+                
+                for (let i = 0; i < childrenCount; i++) {
+                    const childField = document.createElement('div');
+                    childField.className = 'child-age-field';
+                    
+                    const childTitle = document.createElement('h4');
+                    childTitle.textContent = `الطفل رقم ${i + 1}`;
+                    childField.appendChild(childTitle);
+                    
+                    const selectGroup = document.createElement('div');
+                    selectGroup.className = 'form-group';
+                    
+                    const selectLabel = document.createElement('label');
+                    selectLabel.setAttribute('for', `childAge_${i}`);
+                    selectLabel.textContent = 'الفئة العمرية:';
+                    selectGroup.appendChild(selectLabel);
+                    
+                    const select = document.createElement('select');
+                    select.className = 'form-control';
+                    select.id = `childAge_${i}`;
+                    select.setAttribute('data-child-index', i);
+                    
+                    ageCategories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.id;
+                        option.textContent = category.label;
+                        option.setAttribute('data-factor', category.factor);
+                        select.appendChild(option);
+                    });
+                    
+                    selectGroup.appendChild(select);
+                    childField.appendChild(selectGroup);
+                    childrenAgeFields.appendChild(childField);
+                }
+                
+                childrenAgeContainer.style.display = 'block';
+            });
+            
+            // إظهار/إخفاء الحقول الشرطية
+            hasObligationsCheckbox.addEventListener('change', function() {
+                obligationsField.style.display = this.checked ? 'block' : 'none';
+                if (!this.checked) {
+                    obligationsAmountInput.value = '';
+                    highObligationsAlert.style.display = 'none';
+                    manualDeductionField.style.display = 'none';
+                    fullDeductionRadio.checked = true;
+                }
+            });
+            
+            // التحقق من نسبة الالتزامات المالية
+            obligationsAmountInput.addEventListener('input', function() {
+                const fatherIncome = parseFloat(document.getElementById('fatherIncome').value);
+                const obligationsAmount = parseFloat(this.value);
+                
+                if (!isNaN(fatherIncome) && !isNaN(obligationsAmount) && fatherIncome > 0) {
+                    const obligationsPercentage = (obligationsAmount / fatherIncome) * 100;
+                    
+                    if (obligationsPercentage > 60) {
+                        highObligationsAlert.style.display = 'block';
+                        // تعيين القيمة الافتراضية للخصم اليدوي
+                        if (manualDeductionAmountInput.value === '') {
+                            manualDeductionAmountInput.value = Math.round(fatherIncome * 0.4); // 40% من الدخل
+                        }
+                    } else {
+                        highObligationsAlert.style.display = 'none';
+                        manualDeductionField.style.display = 'none';
+                    }
+                } else {
+                    highObligationsAlert.style.display = 'none';
+                    manualDeductionField.style.display = 'none';
+                }
+            });
+            
+            // إظهار/إخفاء حقل الخصم اليدوي
+            manualDeductionRadio.addEventListener('change', function() {
+                manualDeductionField.style.display = this.checked ? 'block' : 'none';
+            });
+            
+            fullDeductionRadio.addEventListener('change', function() {
+                manualDeductionField.style.display = this.checked ? 'none' : 'block';
+            });
+            
+            hasAnotherWifeCheckbox.addEventListener('change', function() {
+                anotherWifeField.style.display = this.checked ? 'block' : 'none';
+                if (!this.checked) {
+                    hasChildrenFromAnotherWifeCheckbox.checked = false;
+                    otherChildrenField.style.display = 'none';
+                    document.getElementById('otherChildrenCount').value = '';
+                }
+            });
+            
+            hasChildrenFromAnotherWifeCheckbox.addEventListener('change', function() {
+                otherChildrenField.style.display = this.checked ? 'block' : 'none';
+                if (!this.checked) {
+                    document.getElementById('otherChildrenCount').value = '';
+                }
+            });
+            
+            // حساب النفقة
+            calculateBtn.addEventListener('click', function() {
+                // التحقق من صحة المدخلات
+                const fatherIncome = parseFloat(document.getElementById('fatherIncome').value);
+                const childrenCount = parseInt(document.getElementById('childrenCount').value);
+                
+                if (isNaN(fatherIncome) || fatherIncome <= 0 || isNaN(childrenCount) || childrenCount <= 0) {
+                    alert('يرجى إدخال قيم صحيحة للدخل الشهري وعدد الأبناء');
+                    return;
+                }
+                
+                // حساب الدخل الصافي بعد خصم الالتزامات المالية
+                let netIncome = fatherIncome;
+                let obligationsAmount = 0;
+                let obligationsDeductionText = 'لا يوجد خصم للالتزامات المالية';
+                
+                if (hasObligationsCheckbox.checked) {
+                    if (highObligationsAlert.style.display === 'block' && manualDeductionRadio.checked) {
+                        // استخدام الخصم اليدوي
+                        obligationsAmount = parseFloat(manualDeductionAmountInput.value) || 0;
+                        obligationsDeductionText = `خصم الالتزامات المالية (يدوي): ${obligationsAmount.toFixed(2)} ر.ع`;
+                    } else {
+                        // استخدام الخصم الكامل
+                        obligationsAmount = parseFloat(obligationsAmountInput.value) || 0;
+                        obligationsDeductionText = `خصم الالتزامات المالية: ${obligationsAmount.toFixed(2)} ر.ع`;
+                    }
+                    
+                    // التأكد من أن الدخل الصافي لا يقل عن 150 ر.ع
+                    netIncome = Math.max(fatherIncome - obligationsAmount, 150);
+                    
+                    if (netIncome === 150 && (fatherIncome - obligationsAmount) < 150) {
+                        obligationsDeductionText += ` (تم تثبيت الدخل الصافي عند الحد الأدنى 150 ر.ع)`;
+                    }
+                }
+                
+                // عرض الدخل الصافي
+                netIncomeResultSpan.textContent = netIncome.toFixed(2);
+                obligationsDeductionElement.textContent = obligationsDeductionText;
+                
+                // تحديد ما إذا كان هناك طلب لبدل السكن
+                const includeHousingAllowance = includeHousingAllowanceCheckbox.checked;
+                
+                // تحديد ما إذا كان هناك طلب للزيادة الموسمية
+                const includeSeasonalIncrease = includeSeasonalIncreaseCheckbox.checked;
+                
+                // تحديد نسبة حساب نفقة الأطفال بناءً على خيار بدل السكن
+                const childPercentageBase = includeHousingAllowance ? 5 : 6.5;
+                
+                // جمع معلومات الفئات العمرية للأبناء
+                const childrenData = [];
+                let totalChildrenPercentage = 0;
+                
+                for (let i = 0; i < childrenCount; i++) {
+                    const ageSelect = document.getElementById(`childAge_${i}`);
+                    const selectedOption = ageSelect.options[ageSelect.selectedIndex];
+                    const ageFactor = parseFloat(selectedOption.getAttribute('data-factor'));
+                    const ageCategory = selectedOption.textContent;
+                    
+                    // حساب نسبة الطفل (نسبة الأساس × معامل الفئة العمرية)
+                    const childPercentage = childPercentageBase * ageFactor;
+                    
+                    childrenData.push({
+                        index: i + 1,
+                        ageCategory: ageCategory,
+                        ageFactor: ageFactor,
+                        percentage: childPercentage
+                    });
+                    
+                    totalChildrenPercentage += childPercentage;
+                }
+                
+                // حساب النسبة الإجمالية
+                let totalPercentage = totalChildrenPercentage;
+                
+                // إضافة نسبة بدل السكن إذا كان مطلوباً
+                if (includeHousingAllowance) {
+                    totalPercentage += 20; // إضافة 20% لبدل السكن
+                }
+                
+                // تحديد سقف أعلى للنسبة بـ40%
+                totalPercentage = Math.min(totalPercentage, 40);
+                
+                // حساب المبلغ الأساسي
+                let baseAmount = (netIncome * totalPercentage) / 100;
+                
+                // إنشاء جدول تفصيلي للحساب
+                let tableHTML = `
+                    <h4>تفاصيل حساب النسب حسب الفئات العمرية:</h4>
+                    <table class="calculation-table">
+                        <thead>
+                            <tr>
+                                <th>البند</th>
+                                <th>الفئة العمرية</th>
+                                <th>المعامل</th>
+                                <th>النسبة المحسوبة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                if (includeHousingAllowance) {
+                    tableHTML += `
+                        <tr>
+                            <td>بدل السكن</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>20%</td>
+                        </tr>
+                    `;
+                    housingAllowanceElement.textContent = `بدل السكن: 20% من الدخل الصافي (${netIncome.toFixed(2)} ر.ع) = ${(netIncome * 0.2).toFixed(2)} ر.ع`;
+                } else {
+                    housingAllowanceElement.textContent = 'لا يوجد بدل سكن مطلوب';
+                }
+                
+                childrenData.forEach(child => {
+                    tableHTML += `
+                        <tr>
+                            <td>الطفل ${child.index}</td>
+                            <td>${child.ageCategory}</td>
+                            <td>${child.ageFactor}</td>
+                            <td>${child.percentage.toFixed(1)}%</td>
+                        </tr>
+                    `;
+                });
+                
+                tableHTML += `
+                        <tr class="total-row">
+                            <td colspan="3">إجمالي النسبة (مع تطبيق الحد الأقصى 40%)</td>
+                            <td>${totalPercentage.toFixed(1)}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                `;
+                
+                childrenCalculationDetails.innerHTML = tableHTML;
+                baseCalculationElement.textContent = `المبلغ الأساسي: ${totalPercentage.toFixed(1)}% من الدخل الصافي (${netIncome.toFixed(2)} ر.ع) = ${baseAmount.toFixed(2)} ر.ع`;
+                
+                // خصم الأبناء من الزوجة الأخرى إن وجدوا
+                let finalAmount = baseAmount;
+                let otherChildrenDeductionText = 'لا يوجد خصم لأبناء الزوجة الأخرى';
+                
+                if (hasAnotherWifeCheckbox.checked && hasChildrenFromAnotherWifeCheckbox.checked) {
+                    const otherChildrenCount = parseInt(document.getElementById('otherChildrenCount').value);
+                    if (!isNaN(otherChildrenCount) && otherChildrenCount > 0) {
+                        const otherChildrenPercentage = Math.min(otherChildrenCount * 5, 20); // 5% لكل طفل بحد أقصى 20%
+                        const otherChildrenDeduction = baseAmount * (otherChildrenPercentage / 100);
+                        finalAmount -= otherChildrenDeduction;
+                        otherChildrenDeductionText = `خصم أبناء الزوجة الأخرى (${otherChildrenCount} طفل): ${otherChildrenPercentage}% = ${otherChildrenDeduction.toFixed(2)} ر.ع`;
+                    }
+                }
+                
+                otherChildrenDeductionElement.textContent = otherChildrenDeductionText;
+                
+                // عرض النتيجة النهائية
+                finalCalculationElement.textContent = `المبلغ النهائي للنفقة: ${finalAmount.toFixed(2)} ر.ع`;
+                alimonyResultSpan.textContent = finalAmount.toFixed(2);
+                
+                // حساب الزيادة الموسمية إذا كانت مطلوبة
+                if (includeSeasonalIncrease) {
+                    let seasonalIncreaseAmount = 0;
+                    
+                    // تحديد مبلغ الزيادة حسب القواعد المحددة الجديدة
+                    if (finalAmount <= 70) {
+                        // إذا كانت النفقة الأساسية 70 ر.ع أو أقل
+                        if (finalAmount <= 50) {
+                            seasonalIncreaseAmount = 70; // تزاد إلى 70 ر.ع
+                        } else {
+                            seasonalIncreaseAmount = 90; // تزاد إلى 90 ر.ع (بين 51 إلى 70 ر.ع)
+                        }
+                    } else {
+                        // إذا كانت النفقة الأساسية أكثر من 70 ر.ع
+                        seasonalIncreaseAmount = Math.round(finalAmount * 1.2); // تُحسب الزيادة بنسبة 20% من المبلغ الأساسي
+                    }
+                    
+                    // عرض الزيادة الموسمية
+                    seasonalIncreaseResultSpan.textContent = seasonalIncreaseAmount.toFixed(0);
+                    seasonalIncreaseResult.style.display = 'block';
+                } else {
+                    // إخفاء الزيادة الموسمية إذا لم تكن مطلوبة
+                    seasonalIncreaseResult.style.display = 'none';
+                }
+                
+                // إضافة شرح مبسط
+                let explanation = "تم احتساب النفقة التقديرية بناءً على: ";
+                
+                if (hasObligationsCheckbox.checked) {
+                    explanation += `خصم الالتزامات المالية من الدخل الإجمالي للحصول على دخل صافي قدره ${netIncome.toFixed(2)} ر.ع، `;
+                }
+                
+                if (includeHousingAllowance) {
+                    explanation += "إضافة بدل سكن بنسبة 20% من الدخل الصافي، ";
+                    explanation += `ثم إضافة نسبة لكل طفل (5% × معامل عمري) حسب فئته العمرية، `;
+                } else {
+                    explanation += `احتساب نسبة لكل طفل (6.5% × معامل عمري) حسب فئته العمرية، `;
+                }
+                
+                if (hasAnotherWifeCheckbox.checked && hasChildrenFromAnotherWifeCheckbox.checked) {
+                    const otherChildrenCount = parseInt(document.getElementById('otherChildrenCount').value);
+                    if (!isNaN(otherChildrenCount) && otherChildrenCount > 0) {
+                        explanation += `وخصم ${Math.min(otherChildrenCount * 5, 20)}% لوجود أبناء من زوجة أخرى، `;
+                    }
+                }
+                
+                explanation += "مع مراعاة أن الحد الأقصى للنسبة هو 40% من الدخل الصافي.";
+                
+                if (includeSeasonalIncrease) {
+                    explanation += " كما تم إضافة بند للزيادة الموسمية في الأعياد وبداية الفصول الدراسية.";
+                }
+                
+                simpleExplanation.textContent = explanation;
+                
+                // عرض النتيجة
+                resultContainer.style.display = 'block';
+            });
+            
+            // إعادة تعيين النموذج
+            resetBtn.addEventListener('click', function() {
+                document.getElementById('alimonyForm').reset();
+                childrenAgeContainer.style.display = 'none';
+                childrenAgeFields.innerHTML = '';
+                obligationsField.style.display = 'none';
+                highObligationsAlert.style.display = 'none';
+                manualDeductionField.style.display = 'none';
+                anotherWifeField.style.display = 'none';
+                otherChildrenField.style.display = 'none';
+                resultContainer.style.display = 'none';
+                seasonalIncreaseResult.style.display = 'none';
+            });
+            
+            // تفعيل القائمة المتنقلة للهواتف
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // إضافة وظيفة زر عرض التسبيب المقترح للحكم
+            const showReasoningBtn = document.getElementById('showReasoningBtn');
+            const reasoningContainer = document.getElementById('reasoningContainer');
+            const reasoningText = document.getElementById('reasoningText');
+            const copyReasoningBtn = document.getElementById('copyReasoningBtn');
+            
+            // توليد جملة عدد الأبناء حسب العدد الفعلي
+            function getChildrenCountText(count) {
+                const countTexts = {
+                    1: "ولد واحد",
+                    2: "ولدان",
+                    3: "ثلاثة أبناء",
+                    4: "أربعة أبناء",
+                    5: "خمسة أبناء",
+                    6: "ستة أبناء",
+                    7: "سبعة أبناء",
+                    8: "ثمانية أبناء",
+                    9: "تسعة أبناء",
+                    10: "عشرة أبناء"
+                };
+                
+                return countTexts[count] || count + " أبناء";
+            }
+            
+            // توليد جملة وصف الأعمار حسب الفئات المدخلة
+            function getAgeDescriptionText(childrenData) {
+                // تحديد الفئات العمرية الموجودة
+                const hasInfant = childrenData.some(child => child.ageCategory.includes('رضيع'));
+                const hasYoung = childrenData.some(child => child.ageCategory.includes('طفل صغير'));
+                const hasSchool = childrenData.some(child => child.ageCategory.includes('طفل مدرسي'));
+                const hasTeen = childrenData.some(child => child.ageCategory.includes('مراهق'));
+                const hasAdult = childrenData.some(child => child.ageCategory.includes('شاب'));
+                
+                // تحديد النص المناسب بناءً على الفئات الموجودة
+                if (hasInfant && !hasYoung && !hasSchool && !hasTeen && !hasAdult) {
+                    return "وكان جميعهم في سن الرضاعة";
+                } else if ((hasYoung || hasSchool) && !hasInfant && !hasTeen && !hasAdult) {
+                    return "وتراوحت أعمارهم بين الطفولة المبكرة والمرحلة المدرسية";
+                } else if (!hasInfant && !hasYoung && !hasSchool && hasTeen && !hasAdult) {
+                    return "وكان في مرحلة المراهقة";
+                } else if ((hasInfant || hasYoung || hasSchool) && (hasTeen || hasAdult)) {
+                    return "وتوزعت أعمارهم بين سن الطفولة والمراهقة وسن الشباب";
+                } else if (hasYoung && hasSchool && !hasInfant && !hasTeen && !hasAdult) {
+                    return "وتراوحت أعمارهم بين الطفولة المبكرة والمرحلة المدرسية";
+                } else {
+                    return "وتنوعت أعمارهم بين مختلف المراحل العمرية";
+                }
+            }
+            
+            // وظيفة توليد نص التسبيب المقترح للحكم
+            function generateReasoning() {
+                // الحصول على البيانات المطلوبة
+                const childrenCount = parseInt(document.getElementById('childrenCount').value);
+                const fatherIncome = parseFloat(document.getElementById('fatherIncome').value);
+                const includeHousingAllowance = document.getElementById('includeHousingAllowance').checked;
+                const includeSeasonalIncrease = document.getElementById('includeSeasonalIncrease').checked;
+                const hasObligations = document.getElementById('hasObligations').checked;
+                
+                // جمع معلومات الفئات العمرية للأبناء
+                const childrenData = [];
+                for (let i = 0; i < childrenCount; i++) {
+                    const ageSelect = document.getElementById(`childAge_${i}`);
+                    const selectedOption = ageSelect.options[ageSelect.selectedIndex];
+                    const ageCategory = selectedOption.textContent;
+                    childrenData.push({ ageCategory: ageCategory });
+                }
+                
+                // الحصول على قيمة النفقة النهائية
+                const finalAmount = parseFloat(alimonyResultSpan.textContent);
+                
+                // الحصول على قيمة الزيادة الموسمية إذا كانت مفعلة
+                let seasonalIncreaseAmount = 0;
+                if (includeSeasonalIncrease) {
+                    seasonalIncreaseAmount = parseFloat(seasonalIncreaseResultSpan.textContent);
+                }
+                
+                // الحصول على قيمة الالتزامات إذا كانت موجودة
+                let obligationsAmount = 0;
+                if (hasObligations) {
+                    if (highObligationsAlert.style.display === 'block' && manualDeductionRadio.checked) {
+                        obligationsAmount = parseFloat(manualDeductionAmountInput.value) || 0;
+                    } else {
+                        obligationsAmount = parseFloat(obligationsAmountInput.value) || 0;
+                    }
+                }
+                
+                // توليد جملة عدد الأبناء
+                const childrenCountText = getChildrenCountText(childrenCount);
+                
+                // توليد جملة وصف الأعمار
+                const ageDescriptionText = getAgeDescriptionText(childrenData);
+                
+                // بناء نص التسبيب
+                let reasoningText = `وعن طلب المدعية نفقة شهرية للأبناء، ولما كانت المادة (١٣٠) من قانون الأحوال الشخصية تنص على أن: "الحضانة من واجبات الأبوين معًا ما دامت الزوجية قائمة بينهما، فإن افترقا فهي للأم…"،
+وكانت المادة (١٣٢) من ذات القانون تنص على أن: "إذا تركت الأم بيت الزوجية لخلاف أو غيره، فتكون الحضانة لها ما لم يقدر القاضي خلاف ذلك…"،
+كما نصت المادة (٤٤) على أن: "تشمل النفقة الطعام والكسوة والمسكن والتطبيب…"،
+والمادة (٦٠/أ) تقضي بأن "نفقة الولد الصغير الذي لا مال له على أبيه…"،
+والمادة (٤٥) تلزم بمراعاة سعة المنفِق وحال المنفَق عليه والوضع الاقتصادي زمانًا ومكانًا،
+ومصداقًا لقوله تعالى: (لِيُنفِقْ ذُو سَعَةٍ مِّن سَعَتِهِ وَمَن قُدِرَ عَلَيْهِ رِزْقُهُ فَلْيُنفِقْ مِمَّا آتَاهُ اللَّهُ لَا يُكَلِّفُ اللَّهُ نَفْسًا إِلَّا مَا آتَاهَا).
+
+ولما كان للمدعية ${childrenCountText}، ${ageDescriptionText}، وكان دخل الأب الشهري يبلغ (${fatherIncome.toFixed(2)} ر.ع)`;
+
+                // إضافة جملة الالتزامات إذا كانت موجودة
+                if (hasObligations && obligationsAmount > 0) {
+                    reasoningText += `، وتم خصم الالتزامات الشهرية البالغة (${obligationsAmount.toFixed(2)} ر.ع)`;
+                }
+                
+                // إضافة جملة بدل السكن إذا كان مفعلاً
+                if (includeHousingAllowance) {
+                    reasoningText += `,
+كما اشتملت الحسبة على بدل سكن بنسبة (٢٠٪)`;
+                }
+                
+                reasoningText += `,
+وتم تقدير نفقة الأبناء بناءً على أعمارهم وفئاتهم واحتياجاتهم الأساسية،
+فإن المحكمة تُقدّر النفقة الشهرية الشاملة بمبلغ وقدره:
+(${finalAmount.toFixed(2)} ر.ع)`;
+
+                // إضافة جملة الزيادة الموسمية إذا كانت مفعلة
+                if (includeSeasonalIncrease) {
+                    reasoningText += `,
+وتزاد في الأعياد وبداية الفصول الدراسية إلى مبلغ وقدره:
+(${seasonalIncreaseAmount.toFixed(0)} ر.ع)، وذلك وفق ما سيرد في منطوق هذا الحكم`;
+                }
+                
+                reasoningText += ".";
+                
+                return reasoningText;
+            }
+            
+            // عرض التسبيب المقترح للحكم عند النقر على الزر
+            showReasoningBtn.addEventListener('click', function() {
+                // التحقق من وجود نتيجة حساب
+                if (resultContainer.style.display === 'none') {
+                    alert('يرجى حساب النفقة أولاً قبل عرض التسبيب المقترح');
+                    return;
+                }
+                
+                // توليد نص التسبيب
+                const reasoning = generateReasoning();
+                
+                // عرض نص التسبيب
+                reasoningText.textContent = reasoning;
+                reasoningContainer.style.display = 'block';
+                
+                // التمرير إلى قسم التسبيب
+                reasoningContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // نسخ نص التسبيب إلى الحافظة
+            copyReasoningBtn.addEventListener('click', function() {
+                // نسخ النص إلى الحافظة
+                const textToCopy = reasoningText.textContent;
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    // تغيير نص الزر مؤقتاً للإشارة إلى نجاح النسخ
+                    const originalText = copyReasoningBtn.textContent;
+                    copyReasoningBtn.textContent = 'تم النسخ!';
+                    copyReasoningBtn.style.backgroundColor = '#28a745';
+                    
+                    // إعادة النص الأصلي بعد ثانيتين
+                    setTimeout(function() {
+                        copyReasoningBtn.textContent = originalText;
+                        copyReasoningBtn.style.backgroundColor = '#4682b4';
+                    }, 2000);
+                }).catch(function(err) {
+                    console.error('فشل نسخ النص: ', err);
+                    alert('حدث خطأ أثناء محاولة نسخ النص');
+                });
+            });
+            
+            // إخفاء قسم التسبيب عند إعادة تعيين النموذج
+            resetBtn.addEventListener('click', function() {
+                reasoningContainer.style.display = 'none';
+            });
+        });
+    </script>
+    
+    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04ae7959925e4fe692ceab1bd15e1a62"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
