@@ -228,6 +228,9 @@ function calculateAlimony() {
     
     // عرض النتائج
     displayResults(netIncome, totalAlimony, seasonalIncreaseAmount, includeSeasonalIncrease);
+    
+    // عرض تفاصيل الحساب
+    displayCalculationDetails(netIncome, housingAmount, childrenCount, includeHousingAllowance, childPercentage, geographicLocation, otherChildrenCount, totalAlimony, seasonalIncreaseAmount, includeSeasonalIncrease);
 }
 
 // دالة عرض النتائج
@@ -260,6 +263,236 @@ function displayResults(netIncome, finalAmount, seasonalIncreaseAmount, includeS
     console.log('تم عرض النتائج بنجاح');
 }
 
+// دالة عرض تفاصيل الحساب
+function displayCalculationDetails(netIncome, housingAmount, childrenCount, includeHousingAllowance, childPercentage, geographicLocation, otherChildrenCount, totalAlimony, seasonalIncreaseAmount, includeSeasonalIncrease) {
+    const detailsContainer = document.getElementById('calculationDetails');
+    if (!detailsContainer) return;
+    
+    let detailsHTML = '<div class="calculation-breakdown">';
+    
+    // بدل السكن
+    if (includeHousingAllowance && housingAmount > 0) {
+        detailsHTML += `<div class="detail-item">
+            <span class="detail-label">🏠 بدل السكن المستقل:</span>
+            <span class="detail-value">${Math.round(housingAmount)} ر.ع (8% من الدخل الصافي)</span>
+        </div>`;
+    } else if (!includeHousingAllowance) {
+        const generalHousingAmount = netIncome * 0.09;
+        detailsHTML += `<div class="detail-item">
+            <span class="detail-label">🏠 بدل السكن ضمن النفقة العامة:</span>
+            <span class="detail-value">${Math.round(generalHousingAmount)} ر.ع (9% من الدخل الصافي)</span>
+        </div>`;
+    }
+    
+    // نفقة الأطفال
+    detailsHTML += '<div class="children-details">';
+    for (let i = 0; i < childrenCount; i++) {
+        const childAgeSelect = document.getElementById(`childAge_${i}`);
+        if (childAgeSelect) {
+            const selectedOption = childAgeSelect.options[childAgeSelect.selectedIndex];
+            const factor = parseFloat(selectedOption.getAttribute('data-factor'));
+            const ageText = selectedOption.text;
+            const childAmount = netIncome * (childPercentage / 100) * factor;
+            
+            detailsHTML += `<div class="detail-item">
+                <span class="detail-label">👶 الطفل رقم ${i + 1} (${ageText}):</span>
+                <span class="detail-value">${Math.round(childAmount)} ر.ع (${childPercentage}% × ${factor})</span>
+            </div>`;
+        }
+    }
+    detailsHTML += '</div>';
+    
+    // عامل المنطقة الجغرافية
+    if (geographicLocation === 'high_cost') {
+        const geoAmount = netIncome * 0.02;
+        detailsHTML += `<div class="detail-item">
+            <span class="detail-label">🌍 عامل المنطقة الجغرافية:</span>
+            <span class="detail-value">${Math.round(geoAmount)} ر.ع (2% إضافية)</span>
+        </div>`;
+    }
+    
+    // خصم الأبناء من زوجة أخرى
+    if (otherChildrenCount > 0) {
+        const deductionPercentage = Math.min(otherChildrenCount * 5, 15);
+        const deductionAmount = totalAlimony * (deductionPercentage / 100);
+        detailsHTML += `<div class="detail-item deduction">
+            <span class="detail-label">➖ خصم الأبناء من زوجة أخرى:</span>
+            <span class="detail-value">-${Math.round(deductionAmount)} ر.ع (${deductionPercentage}%)</span>
+        </div>`;
+    }
+    
+    // المجموع الأساسي
+    detailsHTML += `<div class="detail-item total">
+        <span class="detail-label">💰 المجموع الأساسي:</span>
+        <span class="detail-value">${Math.round(totalAlimony)} ر.ع</span>
+    </div>`;
+    
+    // الزيادة الموسمية
+    if (includeSeasonalIncrease && seasonalIncreaseAmount > 0) {
+        detailsHTML += `<div class="detail-item seasonal">
+            <span class="detail-label">🎉 الزيادة الموسمية:</span>
+            <span class="detail-value">${Math.round(seasonalIncreaseAmount)} ر.ع (25%)</span>
+        </div>`;
+        
+        detailsHTML += `<div class="detail-item final-total">
+            <span class="detail-label">🏆 المجموع مع الزيادة:</span>
+            <span class="detail-value">${Math.round(totalAlimony + seasonalIncreaseAmount)} ر.ع</span>
+        </div>`;
+    }
+    
+    detailsHTML += '</div>';
+    detailsContainer.innerHTML = detailsHTML;
+}
+
+// دالة عرض التسبيب المقترح للحكم
+function showReasoningModal() {
+    const fatherIncome = parseFloat(document.getElementById('fatherIncome').value) || 0;
+    const includeHousingAllowance = document.getElementById('includeHousingAllowance').checked;
+    const childrenCount = parseInt(document.getElementById('childrenCount').value) || 0;
+    const hasObligations = document.getElementById('hasObligations').checked;
+    const obligationsAmount = hasObligations ? parseFloat(document.getElementById('obligationsAmount').value) || 0 : 0;
+    const hasAnotherWife = document.getElementById('hasAnotherWife').checked;
+    const hasChildrenFromAnotherWife = hasAnotherWife ? document.getElementById('hasChildrenFromAnotherWife').checked : false;
+    const otherChildrenCount = hasChildrenFromAnotherWife ? parseInt(document.getElementById('otherChildrenCount').value) || 0 : 0;
+    const includeSeasonalIncrease = document.getElementById('includeSeasonalIncrease').checked;
+    const geographicLocation = document.getElementById('geographicLocation').value;
+    
+    // حساب الدخل الصافي
+    let netIncome = fatherIncome - obligationsAmount;
+    if (netIncome < 150) {
+        netIncome = 150;
+    }
+    
+    // إنشاء نص التسبيب
+    let reasoning = `بناءً على الوقائع المعروضة والمستندات المقدمة، وبعد الاطلاع على أحكام قانون الأحوال الشخصية، تقرر المحكمة ما يلي:\n\n`;
+    
+    reasoning += `أولاً: ثبت للمحكمة أن دخل المدعى عليه الشهري يبلغ ${fatherIncome} ريال عماني، `;
+    
+    if (hasObligations && obligationsAmount > 0) {
+        reasoning += `وبعد خصم التزاماته المالية البالغة ${obligationsAmount} ريال عماني، يصبح دخله الصافي ${Math.round(netIncome)} ريال عماني.\n\n`;
+    } else {
+        reasoning += `وهو دخله الصافي.\n\n`;
+    }
+    
+    reasoning += `ثانياً: بالنظر إلى عدد الأبناء المستحقين للنفقة وهم ${childrenCount} `;
+    reasoning += childrenCount === 1 ? 'طفل' : (childrenCount === 2 ? 'طفلان' : 'أطفال');
+    reasoning += `، وأعمارهم المختلفة التي تتطلب احتياجات متنوعة، `;
+    
+    if (includeHousingAllowance) {
+        reasoning += `وحيث أن المدعية تطلب بدل سكن مستقل، فقد تم احتساب بدل السكن بنسبة 8% من الدخل الصافي، ونفقة كل طفل بنسبة 5% مضروبة في المعامل العمري المناسب.\n\n`;
+    } else {
+        reasoning += `وحيث أن المدعية لا تطلب بدل سكن مستقل، فقد تم إدراج بدل السكن ضمن النفقة العامة بنسبة 9%، ونفقة كل طفل بنسبة 6.5% مضروبة في المعامل العمري المناسب.\n\n`;
+    }
+    
+    if (geographicLocation === 'high_cost') {
+        reasoning += `ثالثاً: نظراً لكون الإقامة في منطقة مرتفعة التكلفة، تم إضافة 2% إضافية لمراعاة ارتفاع تكاليف المعيشة.\n\n`;
+    }
+    
+    if (hasChildrenFromAnotherWife && otherChildrenCount > 0) {
+        const deductionPercentage = Math.min(otherChildrenCount * 5, 15);
+        reasoning += `رابعاً: حيث أن للمدعى عليه ${otherChildrenCount} `;
+        reasoning += otherChildrenCount === 1 ? 'طفل آخر' : (otherChildrenCount === 2 ? 'طفلان آخران' : 'أطفال آخرين');
+        reasoning += ` من زوجة أخرى، فقد تم خصم ${deductionPercentage}% من إجمالي النفقة مراعاة لهذه الالتزامات.\n\n`;
+    }
+    
+    if (includeSeasonalIncrease) {
+        reasoning += `خامساً: تم إقرار زيادة موسمية بنسبة 25% (10% للأعياد و15% للعام الدراسي) لمواجهة المصاريف الإضافية في هذه المواسم.\n\n`;
+    }
+    
+    // حساب النفقة النهائية (نفس منطق الحساب الأساسي)
+    let totalAlimony = 0;
+    if (includeHousingAllowance) {
+        totalAlimony += netIncome * 0.08;
+    }
+    
+    const childPercentage = includeHousingAllowance ? 5 : (includeHousingAllowance ? 6.5 : 9);
+    for (let i = 0; i < childrenCount; i++) {
+        const childAgeSelect = document.getElementById(`childAge_${i}`);
+        if (childAgeSelect) {
+            const selectedOption = childAgeSelect.options[childAgeSelect.selectedIndex];
+            const factor = parseFloat(selectedOption.getAttribute('data-factor'));
+            totalAlimony += netIncome * (childPercentage / 100) * factor;
+        }
+    }
+    
+    if (geographicLocation === 'high_cost') {
+        totalAlimony += netIncome * 0.02;
+    }
+    
+    // تطبيق السقف
+    let maxPercentage = 40;
+    if (netIncome < 600) {
+        maxPercentage = 45;
+    } else if (netIncome > 1500) {
+        maxPercentage = 35;
+    }
+    
+    const maxAmount = netIncome * (maxPercentage / 100);
+    if (totalAlimony > maxAmount) {
+        totalAlimony = maxAmount;
+        reasoning += `سادساً: تم تطبيق السقف الأعلى للنفقة بنسبة ${maxPercentage}% من الدخل الصافي.\n\n`;
+    }
+    
+    if (hasChildrenFromAnotherWife && otherChildrenCount > 0) {
+        const deductionPercentage = Math.min(otherChildrenCount * 5, 15);
+        const deductionAmount = totalAlimony * (deductionPercentage / 100);
+        totalAlimony -= deductionAmount;
+    }
+    
+    let finalAmount = totalAlimony;
+    if (includeSeasonalIncrease) {
+        const seasonalAmount = totalAlimony * 0.25;
+        finalAmount += seasonalAmount;
+        reasoning += `لذلك تحكم المحكمة بإلزام المدعى عليه بدفع نفقة شهرية قدرها ${Math.round(totalAlimony)} ريال عماني، مع زيادة موسمية قدرها ${Math.round(seasonalAmount)} ريال عماني، ليصبح المجموع ${Math.round(finalAmount)} ريال عماني في المواسم المحددة.\n\n`;
+    } else {
+        reasoning += `لذلك تحكم المحكمة بإلزام المدعى عليه بدفع نفقة شهرية قدرها ${Math.round(finalAmount)} ريال عماني.\n\n`;
+    }
+    
+    reasoning += `هذا الحكم قابل للاستئناف خلال المدة القانونية المحددة.\n\n`;
+    reasoning += `والله الموفق،،،\n\nالقاضي\n[اسم القاضي]\n[التاريخ]`;
+    
+    // عرض التسبيب في منطقة مخصصة
+    const reasoningContainer = document.getElementById('reasoningResult');
+    if (reasoningContainer) {
+        reasoningContainer.innerHTML = `<div class="reasoning-content">
+            <h4 style="color: #4682b4; margin-bottom: 1rem;">التسبيب المقترح للحكم:</h4>
+            <div style="white-space: pre-line; line-height: 1.8; background: #f9f9f9; padding: 1.5rem; border-radius: 8px; border-right: 4px solid #4682b4;">
+                ${reasoning}
+            </div>
+            <button onclick="copyReasoningText()" style="margin-top: 1rem; padding: 0.5rem 1rem; background: #4682b4; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                نسخ النص
+            </button>
+        </div>`;
+        reasoningContainer.style.display = 'block';
+        
+        // التمرير إلى منطقة التسبيب
+        reasoningContainer.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        // إذا لم توجد المنطقة المخصصة، استخدم alert كبديل
+        alert(reasoning);
+    }
+}
+
+// دالة نسخ نص التسبيب
+function copyReasoningText() {
+    const reasoningContent = document.querySelector('#reasoningResult .reasoning-content div');
+    if (reasoningContent) {
+        const textToCopy = reasoningContent.textContent;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            alert('تم نسخ النص بنجاح!');
+        }).catch(() => {
+            // طريقة بديلة للنسخ
+            const textArea = document.createElement('textarea');
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('تم نسخ النص بنجاح!');
+        });
+    }
+}
+
 // دالة إعادة التعيين
 function resetForm() {
     document.getElementById('alimonyForm').reset();
@@ -271,6 +504,8 @@ function resetForm() {
     const otherChildrenField = document.getElementById('otherChildrenField');
     const resultContainer = document.getElementById('resultContainer');
     const seasonalIncreaseResult = document.getElementById('seasonalIncreaseResult');
+    const reasoningResult = document.getElementById('reasoningResult');
+    const calculationDetails = document.getElementById('calculationDetails');
     
     if (childrenAgeContainer) childrenAgeContainer.style.display = 'none';
     if (childrenAgeFields) childrenAgeFields.innerHTML = '';
@@ -279,6 +514,8 @@ function resetForm() {
     if (otherChildrenField) otherChildrenField.style.display = 'none';
     if (resultContainer) resultContainer.style.display = 'none';
     if (seasonalIncreaseResult) seasonalIncreaseResult.style.display = 'none';
+    if (reasoningResult) reasoningResult.style.display = 'none';
+    if (calculationDetails) calculationDetails.innerHTML = '';
 }
 
 // تهيئة الأحداث عند تحميل الصفحة
@@ -315,6 +552,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('resetBtn');
     if (resetBtn) {
         resetBtn.addEventListener('click', resetForm);
+    }
+    
+    const reasoningBtn = document.getElementById('showReasoningBtn');
+    if (reasoningBtn) {
+        reasoningBtn.addEventListener('click', showReasoningModal);
     }
     
     console.log('تم ربط جميع الأحداث بنجاح');
