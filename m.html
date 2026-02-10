@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شكراً لك - مُعين</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        body {
+            background: linear-gradient(135deg, #8B7355 0%, #6B5744 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .thank-you-container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        h1 {
+            color: #8B7355;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .access-link {
+            background: linear-gradient(135deg, #8B7355 0%, #6B5744 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 20px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.4);
+        }
+        
+        .access-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.6);
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: right;
+        }
+        
+        .info-box h3 {
+            color: #8B7355;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .info-box li {
+            color: #666;
+            margin-bottom: 10px;
+            padding-right: 25px;
+            position: relative;
+        }
+        
+        .info-box li:before {
+            content: "✓";
+            position: absolute;
+            right: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>🎉 شكراً لك على اشتراكك في مُعين!</h1>
+        
+        <p>تم تفعيل اشتراكك بنجاح. يمكنك الآن الوصول إلى جميع المراجع والنماذج القضائية.</p>
+        
+        <a href="pages/moein-content?token=ALFAN_TOKEN" class="access-link" id="accessLink">
+            <i class="fas fa-arrow-left"></i> الدخول إلى المحتوى الحصري
+        </a>
+        
+        <div class="info-box">
+            <h3>ما الذي ستحصل عليه:</h3>
+            <ul>
+                <li>وصول كامل وغير محدود لجميع المراجع القضائية</li>
+                <li>مكتبة شاملة من النماذج القانونية الجاهزة</li>
+                <li>تحديثات دورية للمحتوى</li>
+                <li>دعم فني متواصل</li>
+            </ul>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 14px; color: #999;">
+            <i class="fas fa-bookmark"></i> احفظ هذا الرابط للوصول السريع في المستقبل
+        </p>
+    </div>
+    
+    <script>
+        // استخراج التوكين من URL parameters واستبداله في رابط الوصول
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token') || 'ALFAN_TOKEN';
+        
+        // تحديث رابط الوصول بالتوكين الفعلي
+        const accessLink = document.getElementById('accessLink');
+        accessLink.href = `pages/moein-content?token=${token}`;
+    </script>
+</body>
+</html>
