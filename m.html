@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شكراً لك - مُعين</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        body {
+            background: linear-gradient(135deg, #8B7355 0%, #6B5744 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+
+        .error-icon {
+            font-size: 80px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #8B7355;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .access-link, .buy-link {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #c19a6b 0%, #8B7355 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
+        }
+
+        .access-link:hover, .buy-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .info-box h3 {
+            color: #8B7355;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-box li {
+            color: #666;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-box li:last-child {
+            border-bottom: none;
+        }
+
+        .info-box li i {
+            color: #4CAF50;
+            margin-left: 10px;
+        }
+
+        .note {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #856404;
+        }
+
+        /* إخفاء الحاويات افتراضياً */
+        #thank-you-content, #no-purchase-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- محتوى صفحة الشكر للمشترين -->
+    <div id="thank-you-content" class="container">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <h1>🎉 شكراً لك على اشتراكك في مُعين!</h1>
+        
+        <p>تم تفعيل اشتراكك بنجاح. يمكنك الآن الوصول إلى جميع المراجع والنماذج القضائية.</p>
+        
+        <a href="pages/moein-content?access=moein2026" class="access-link" id="accessLink">
+            <i class="fas fa-arrow-left"></i> الدخول إلى المحتوى الحصري
+        </a>
+        
+        <div class="info-box">
+            <h3>ما الذي ستحصل عليه:</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> وصول كامل وغير محدود لجميع المراجع القضائية</li>
+                <li><i class="fas fa-check"></i> مكتبة شاملة من النماذج القانونية الجاهزة</li>
+                <li><i class="fas fa-check"></i> تحديثات دورية للمحتوى</li>
+                <li><i class="fas fa-check"></i> دعم فني متواصل</li>
+            </ul>
+        </div>
+        
+        <p class="note">
+            <i class="fas fa-info-circle"></i> احتفظ هذا الرابط للوصول السريع في المستقبل.
+        </p>
+    </div>
+
+    <!-- محتوى للزوار بدون شراء -->
+    <div id="no-purchase-content" class="container">
+        <div class="error-icon">
+            <i class="fas fa-lock"></i>
+        </div>
+        
+        <h1>يجب عليك الشراء أولاً</h1>
+        
+        <p>عذراً، هذه الصفحة مخصصة للمشتركين فقط. للوصول إلى المحتوى الحصري، يرجى الاشتراك أولاً.</p>
+        
+        <a href="pages/moein-landing.html" class="buy-link">
+            <i class="fas fa-shopping-cart"></i> تعرف على كيفية الاشتراك
+        </a>
+        
+        <div class="info-box">
+            <h3>ماذا ستحصل عند الاشتراك:</h3>
+            <ul>
+                <li><i class="fas fa-check"></i> وصول كامل وغير محدود لجميع المراجع القضائية</li>
+                <li><i class="fas fa-check"></i> مكتبة شاملة من النماذج القانونية الجاهزة</li>
+                <li><i class="fas fa-check"></i> تحديثات دورية للمحتوى</li>
+                <li><i class="fas fa-check"></i> دعم فني متواصل</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // التحقق من وجود token في URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        
+        if (token) {
+            // المستخدم اشترى من ألفان - عرض صفحة الشكر
+            document.getElementById('thank-you-content').style.display = 'block';
+            
+            // تحديث رابط الوصول بالتوكين الفعلي (استخدام access بدلاً من token)
+            const accessLink = document.getElementById('accessLink');
+            accessLink.href = `pages/moein-content?access=${token}`;
+        } else {
+            // المستخدم لم يشتري - عرض رسالة الشراء
+            document.getElementById('no-purchase-content').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
