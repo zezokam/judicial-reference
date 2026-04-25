@@ -4,130 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المرجع القضائي - القاضي عزان الكمالي</title>
-    
-    <!-- وسوم معاينة الرابط (Open Graph) -->
+
     <meta property="og:title" content="المرجع القضائي - القاضي عزان الكمالي" />
-    <meta property="og:description" content="أدوات قانونية مبسطة تساعد في تحسين الوصول إلى المعلومات القانونية، وتيسير العمل القضائي" />
+    <meta property="og:description" content="أدوات قانونية مبسطة تساعد في تحسين الوصول إلى المعلومات القانونية وتيسير العمل القضائي" />
     <meta property="og:image" content="https://alkamali.uk/images/thumbnails/og-image.jpg" />
     <meta property="og:url" content="https://alkamali.uk" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ar_OM" />
-    
-    <!-- وسوم تويتر كاردز -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="المرجع القضائي - القاضي عزان الكمالي" />
-    <meta name="twitter:description" content="أدوات قانونية مبسطة تساعد في تحسين الوصول إلى المعلومات القانونية، وتيسير العمل القضائي" />
+    <meta name="twitter:description" content="أدوات قانونية مبسطة تساعد في تحسين الوصول إلى المعلومات القانونية وتيسير العمل القضائي" />
     <meta name="twitter:image" content="https://alkamali.uk/images/thumbnails/og-image.jpg" />
-    
-    <!-- Google Fonts - Tajawal -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/cards.css">
-    <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/custom_updates.css">
-    <!-- Font Awesome للأيقونات -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="index.html" class="logo">
-                <img src="images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
-                <h1>المرجع القضائي</h1>
+
+<!-- ── Overlay موبايل ── -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ── Header ── -->
+<header id="mainHeader">
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <img src="images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
+            <h1>المرجع القضائي</h1>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="القائمة">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="active"><i class="fas fa-home icon"></i>الرئيسية</a></li>
+            <li><a href="pages/calculator.html"><i class="fas fa-calculator icon"></i>حاسبة نهاية الخدمة</a></li>
+            <li><a href="pages/alimony_calculator.html"><i class="fas fa-scale-balanced icon"></i>حاسبة النفقة</a></li>
+            <li><a href="pages/about.html"><i class="fas fa-user-tie icon"></i>نبذة</a></li>
+            <li><a href="pages/contact.html"><i class="fas fa-envelope icon"></i>تواصل</a></li>
+            <li><a href="pages/login.html" class="btn-login-nav"><i class="fas fa-sign-in-alt icon"></i>دخول</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-content">
+        <div class="hero-badge animate-in delay-1">
+            <i class="fas fa-gavel"></i>
+            المنصة القانونية العُمانية المتخصصة
+        </div>
+
+        <h2 class="animate-in delay-2">
+            المرجع <span class="gold">القضائي</span>
+        </h2>
+
+        <p class="hero-desc animate-in delay-3">
+            منصة قانونية متكاملة أسسها القاضي عزان الكمالي، تقدم أدوات قضائية دقيقة ومراجع موثوقة
+            تيسّر العمل القانوني اليومي للقضاة والمحامين والمهتمين بالشأن العدلي.
+        </p>
+
+        <div class="hero-cta animate-in delay-4">
+            <a href="pages/calculator.html" class="btn btn-primary">
+                <i class="fas fa-calculator"></i>
+                حاسبة نهاية الخدمة
             </a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links">
-                <li><a href="index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
-                <li><a href="pages/calculator.html"><i class="fas fa-calculator icon"></i>حاسبة مكافأة نهاية الخدمة</a></li>
-                <li><a href="pages/alimony_calculator.html"><i class="fas fa-money-bill-wave icon"></i>حاسبة النفقة التقديرية</a></li>
-                
-                <li><a href="pages/about.html"><i class="fas fa-info-circle icon"></i>نبذة</a></li>
-                <li><a href="pages/contact.html"><i class="fas fa-envelope icon"></i>تواصل معنا</a></li>
-                <li><a href="pages/login.html"><i class="fas fa-user icon"></i>تسجيل الدخول</a></li>
-            </ul>
-        </nav>
-    </header>
+            <a href="pages/alimony_calculator.html" class="btn btn-outline-white">
+                <i class="fas fa-scale-balanced"></i>
+                حاسبة النفقة التقديرية
+            </a>
+        </div>
 
-    <main>
-        <section class="hero">
-            <h2>المرجع القضائي</h2>
-            <p>منصة قانونية متكاملة تقدم مجموعة من الأدوات والمراجع القضائية لمساعدة المختصين والمهتمين في المجال القانوني</p>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">خدماتنا</h2>
-            <div class="cards-container">
-                <div class="card">
-                    <div class="card-img">
-                        <div class="calculator-icon">
-                            <div class="calculator-screen">123,456</div>
-                            <div class="calculator-buttons">
-                                <div class="button">7</div>
-                                <div class="button">8</div>
-                                <div class="button">9</div>
-                                <div class="button">÷</div>
-                                <div class="button">4</div>
-                                <div class="button">5</div>
-                                <div class="button">6</div>
-                                <div class="button">×</div>
-                                <div class="button">1</div>
-                                <div class="button">2</div>
-                                <div class="button">3</div>
-                                <div class="button">-</div>
-                                <div class="button">0</div>
-                                <div class="button">.</div>
-                                <div class="button">=</div>
-                                <div class="button">+</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">حاسبة مكافأة نهاية الخدمة</h3>
-                        <p class="card-text">أداة سهلة الاستخدام لحساب مكافأة نهاية الخدمة وفقاً للقانون العماني، تدعم كلاً من القانون الجديد والقديم.</p>
-                        <a href="pages/calculator.html" class="btn">استخدم الحاسبة</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-img">
-                        <div class="alimony-card-custom">
-                            <i class="fas fa-users"></i>
-                            <div class="title-text">النفقة التقديرية</div>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">حاسبة النفقة التقديرية</h3>
-                        <p class="card-text">أداة سهلة الاستخدام لحساب النفقة التقديرية للأبناء وفقاً للمعايير المعتمدة، مع مراعاة الظروف الخاصة لكل حالة.</p>
-                        <a href="pages/alimony_calculator.html" class="btn">استخدم الحاسبة</a>
-                    </div>
-                </div>
+        <div class="hero-stats animate-in delay-4">
+            <div class="stat-item">
+                <span class="stat-number">2</span>
+                <span class="stat-label">أداة قانونية متخصصة</span>
             </div>
-        </section>
-
-        <section class="section">
-            <h2 class="section-title">عن المرجع القضائي</h2>
-            <div class="content-section">
-                <p>المرجع القضائي هو منصة قانونية متكاملة تهدف إلى تقديم مجموعة من الأدوات والمراجع القضائية لمساعدة المختصين والمهتمين في المجال القانوني. تم تأسيس هذه المنصة من قبل القاضي عزان الكمالي لتكون مرجعاً شاملاً يسهل الوصول إلى المعلومات القانونية والأدوات المساعدة.</p>
-                <p>تتميز المنصة بتوفير حاسبة مكافأة نهاية الخدمة التي تدعم كلاً من القانون الجديد والقديم، بالإضافة إلى أدوات قانونية أخرى مصممة لتسهيل العمل القضائي.</p>
-                <a href="pages/about.html" class="btn">تعرف علينا أكثر</a>
+            <div class="stat-item">
+                <span class="stat-number">٦٧٠٠+</span>
+                <span class="stat-label">مبدأ قضائي محفوظ</span>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">المرجع القضائي</div>
-            <div class="copyright">
-                &copy; 2025 القاضي عزان الكمالي - جميع الحقوق محفوظة
+            <div class="stat-item">
+                <span class="stat-number">١٠٠٪</span>
+                <span class="stat-label">دقة في الحسابات القانونية</span>
             </div>
         </div>
-    </footer>
+    </div>
 
-    <script src="js/main.js"></script>
-    
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04ae7959925e4fe692ceab1bd15e1a62"}'></script><!-- End Cloudflare Web Analytics -->
+    <div class="scroll-indicator">
+        <i class="fas fa-chevron-down"></i>
+        <span>اكتشف أكثر</span>
+    </div>
+</section>
+
+<!-- ── شريط الميزات ── -->
+<div class="features-strip">
+    <div class="features-strip-inner">
+        <div class="feature-item animate-in">
+            <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
+            <div class="feature-text">
+                <h4>دقة قانونية عالية</h4>
+                <p>حسابات مستندة لنصوص القانون العُماني الصريحة</p>
+            </div>
+        </div>
+        <div class="feature-item animate-in delay-1">
+            <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="feature-text">
+                <h4>مصدر موثوق</h4>
+                <p>أعدّه قاضٍ بالمحكمة الابتدائية بسلطنة عُمان</p>
+            </div>
+        </div>
+        <div class="feature-item animate-in delay-2">
+            <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+            <div class="feature-text">
+                <h4>يعمل على كل الأجهزة</h4>
+                <p>تجربة سلسة على الجوال والحاسوب واللوحي</p>
+            </div>
+        </div>
+        <div class="feature-item animate-in delay-3">
+            <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+            <div class="feature-text">
+                <h4>نتائج فورية</h4>
+                <p>احسب وشاهد النتيجة في ثوانٍ معدودة</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── الخدمات ── -->
+<section style="background: var(--cream);">
+    <div class="section">
+        <div class="section-header">
+            <div class="section-tag"><i class="fas fa-layer-group"></i> خدماتنا</div>
+            <h2 class="section-title">أدوات قانونية متخصصة</h2>
+            <div class="gold-line"></div>
+            <p class="section-subtitle" style="margin-top:1rem;">
+                نقدم مجموعة من الأدوات الدقيقة المبنية على أحكام القانون العُماني وأحدث المعايير القضائية
+            </p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- بطاقة 1 -->
+            <div class="service-card animate-in delay-1">
+                <div class="card-icon"><i class="fas fa-calculator"></i></div>
+                <h3 class="card-title">حاسبة مكافأة نهاية الخدمة</h3>
+                <p class="card-desc">
+                    احسب مكافأتك بدقة وفق قانون العمل العُماني، متضمنةً دعم القانون الجديد (مرسوم ٢٠٢٣/٥٣)
+                    والقانون القديم (مرسوم ٢٠٠٣/٣٥). أدخل تواريخ العمل والراتب واحصل على النتيجة فوراً.
+                </p>
+                <a href="pages/calculator.html" class="card-link">
+                    استخدم الحاسبة <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <!-- بطاقة 2 -->
+            <div class="service-card animate-in delay-2">
+                <div class="card-icon"><i class="fas fa-scale-balanced"></i></div>
+                <h3 class="card-title">حاسبة النفقة التقديرية</h3>
+                <p class="card-desc">
+                    أداة استرشادية احترافية لتقدير نفقة الأبناء بناءً على الدخل والفئات العمرية والالتزامات المالية،
+                    مع توليد تسبيب مقترح للحكم جاهز للاستخدام القضائي.
+                </p>
+                <a href="pages/alimony_calculator.html" class="card-link">
+                    استخدم الحاسبة <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <!-- بطاقة 3 -->
+            <div class="service-card animate-in delay-3">
+                <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                <h3 class="card-title">قاعدة المبادئ القضائية</h3>
+                <p class="card-desc">
+                    محرك بحث ذكي في أكثر من ٦٧٠٠ مبدأ قضائي صادر عن المحكمة العليا العُمانية،
+                    يتيح البحث السريع والدقيق للقضاة والمحامين والباحثين القانونيين.
+                </p>
+                <a href="https://alkamali.uk/-----/" class="card-link" target="_blank" rel="noopener">
+                    استعرض المبادئ <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── القاضي عزان ── -->
+<div class="author-strip">
+    <div class="author-inner">
+        <div class="author-photo-wrap animate-in">
+            <img src="images/author_photo_resized.jpeg"
+                 alt="القاضي عزان الكمالي"
+                 class="author-photo"
+                 id="author-img-placeholder"
+                 onerror="this.style.display='none'">
+        </div>
+        <div class="author-info-block animate-in delay-2">
+            <div class="author-eyebrow">المؤسِّس</div>
+            <div class="author-name-block">القاضي عزان الكمالي</div>
+            <div class="author-role">قاضٍ بالمحكمة الابتدائية — ولاية لوى، سلطنة عُمان</div>
+            <p class="author-bio-text">
+                أعمل على تطوير أدوات قانونية مبسّطة تساعد في تحسين الوصول إلى المعلومات القانونية وتيسير العمل القضائي.
+                أنشأت هذا الموقع لتجميع الأدوات والموارد التي أستخدمها وأشاركها في نطاق العمل،
+                على أمل أن تكون نافعة لمن يحتاجها.
+            </p>
+            <a href="pages/about.html" class="btn btn-primary" style="display:inline-flex;">
+                <i class="fas fa-user-tie"></i>
+                تعرّف أكثر
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="footer-logo-row">
+                <img src="images/final_logo.svg" alt="شعار المرجع القضائي" id="footer-logo">
+                <span>المرجع القضائي</span>
+            </div>
+            <p class="footer-brand-desc">
+                منصة قانونية متكاملة تقدم أدوات ومراجع قضائية دقيقة لخدمة القضاة والمحامين
+                والمهتمين بالشأن القانوني في سلطنة عُمان.
+            </p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn" aria-label="لينكدإن"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h4>الأدوات</h4>
+            <ul class="footer-links-list">
+                <li><a href="pages/calculator.html">حاسبة نهاية الخدمة</a></li>
+                <li><a href="pages/alimony_calculator.html">حاسبة النفقة التقديرية</a></li>
+                <li><a href="pages/calculator.html">القانون الجديد ٢٠٢٣/٥٣</a></li>
+                <li><a href="pages/calculator.html">القانون القديم ٢٠٠٣/٣٥</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>الموقع</h4>
+            <ul class="footer-links-list">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="pages/about.html">نبذة عنا</a></li>
+                <li><a href="pages/contact.html">تواصل معنا</a></li>
+                <li><a href="pages/login.html">تسجيل الدخول</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 القاضي عزان الكمالي — جميع الحقوق محفوظة</p>
+        <p>alkamali.uk</p>
+    </div>
+</footer>
+
+<!-- زر العودة للأعلى -->
+<button class="scroll-top-btn" id="scrollTopBtn" aria-label="العودة للأعلى">
+    <i class="fas fa-chevron-up"></i>
+</button>
+
+<script src="js/main.js"></script>
+<!-- Cloudflare Web Analytics -->
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04ae7959925e4fe692ceab1bd15e1a62"}'></script>
 </body>
 </html>

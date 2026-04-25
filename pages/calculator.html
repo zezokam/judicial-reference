@@ -4,92 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>حاسبة مكافأة نهاية الخدمة - المرجع القضائي</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/calculator.css">
-    <!-- Font Awesome للأيقونات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
-                <h1>المرجع القضائي</h1>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<header id="mainHeader" class="page-header-nav">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">
+            <img src="../images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
+            <h1>المرجع القضائي</h1>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
+            <li><a href="calculator.html" class="active"><i class="fas fa-calculator icon"></i>نهاية الخدمة</a></li>
+            <li><a href="alimony_calculator.html"><i class="fas fa-scale-balanced icon"></i>النفقة</a></li>
+            <li><a href="about.html"><i class="fas fa-user-tie icon"></i>نبذة</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope icon"></i>تواصل</a></li>
+            <li><a href="login.html" class="btn-login-nav"><i class="fas fa-sign-in-alt icon"></i>دخول</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-header">
+    <div class="page-header-content">
+        <h1 class="page-title"><i class="fas fa-calculator" style="color:var(--gold);font-size:2.2rem;margin-bottom:0.75rem;display:block;"></i>حاسبة مكافأة <span class="gold">نهاية الخدمة</span></h1>
+        <p class="page-description">اختر الإطار القانوني المنطبق على حالتك للحصول على حساب دقيق وفق القانون العُماني</p>
+        <div class="page-breadcrumb">
+            <a href="../index.html">الرئيسية</a>
+            <i class="fas fa-chevron-left" style="font-size:0.65rem;"></i>
+            <span>حاسبة نهاية الخدمة</span>
+        </div>
+    </div>
+</div>
+
+<main>
+    <div class="calculator-wrapper">
+        <div class="calculator-options animate-in">
+            <a href="new_law.html" class="option-card">
+                <div class="option-icon"><i class="fas fa-file-contract"></i></div>
+                <h3>القانون الجديد</h3>
+                <p>مرسوم رقم ٢٠٢٣/٥٣</p>
+                <span class="btn btn-primary" style="width:100%;justify-content:center;">اختيار</span>
             </a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links">
-                <li><a href="../index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
-                <li><a href="calculator.html"><i class="fas fa-calculator icon"></i>حاسبة مكافأة نهاية الخدمة</a></li>
-                <li><a href="about.html"><i class="fas fa-info-circle icon"></i>نبذة</a></li>
-                <li><a href="contact.html"><i class="fas fa-envelope icon"></i>تواصل معنا</a></li>
-                <li><a href="login.html"><i class="fas fa-user icon"></i>تسجيل الدخول</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <div class="page-header">
-            <h1 class="page-title">حاسبة مكافأة نهاية الخدمة</h1>
-            <p class="page-description">أداة سهلة الاستخدام لحساب مكافأة نهاية الخدمة وفقاً للقانون العماني</p>
+            <a href="old_law.html" class="option-card">
+                <div class="option-icon"><i class="fas fa-history"></i></div>
+                <h3>القانون القديم</h3>
+                <p>مرسوم رقم ٢٠٠٣/٣٥</p>
+                <span class="btn btn-primary" style="width:100%;justify-content:center;">اختيار</span>
+            </a>
         </div>
 
-        <div class="content-section">
-            <div class="calculator-options">
-                <div class="option-card">
-                    <h3><i class="fas fa-file-alt icon"></i>القانون الجديد</h3>
-                    <p>مرسوم رقم ٢٠٢٣/٥٣</p>
-                    <a href="new_law.html" class="btn">اختيار</a>
-                </div>
-                <div class="option-card">
-                    <h3><i class="fas fa-history icon"></i>القانون القديم</h3>
-                    <p>مرسوم رقم ٢٠٠٣/٣٥</p>
-                    <a href="old_law.html" class="btn">اختيار</a>
-                </div>
-            </div>
-        </div>
+        <div class="content-box animate-in delay-2">
+            <h2><i class="fas fa-info-circle"></i> معلومات عن مكافأة نهاية الخدمة</h2>
+            <p>مكافأة نهاية الخدمة مبلغ مالي يستحقه العامل عند انتهاء خدمته لدى صاحب العمل، وتختلف طريقة حسابها باختلاف القانون المطبق.</p>
 
-        <div class="content-section">
-            <h2>معلومات عن مكافأة نهاية الخدمة</h2>
-            <p>مكافأة نهاية الخدمة هي مبلغ مالي يستحقه العامل عند انتهاء خدمته لدى صاحب العمل، وتختلف طريقة حسابها باختلاف القانون المطبق.</p>
-            
             <h3>القانون الجديد (مرسوم رقم ٢٠٢٣/٥٣)</h3>
-            <p>وفقاً للمادة (٦١) من قانون العمل العماني الجديد، يستحق العامل مكافأة نهاية خدمة بمعدل ثابت قدره راتب شهر كامل عن كل سنة من سنوات الخدمة.</p>
-            
+            <p>وفقاً للمادة (٦١) من قانون العمل العُماني الجديد، يستحق العامل مكافأة بمعدل ثابت قدره <strong>راتب شهر كامل عن كل سنة</strong> من سنوات الخدمة.</p>
+
             <h3>القانون القديم (مرسوم رقم ٢٠٠٣/٣٥)</h3>
-            <p>وفقاً للمادة (٣٩) من قانون العمل العماني القديم، يستحق العامل مكافأة نهاية خدمة بمعدل متغير:</p>
+            <p>وفقاً للمادة (٣٩) من قانون العمل العُماني القديم، يستحق العامل مكافأة بمعدل متغير:</p>
             <ul>
-                <li>راتب 15 يوم عن كل سنة من السنوات الثلاث الأولى</li>
+                <li>راتب ١٥ يوماً عن كل سنة من السنوات الثلاث الأولى</li>
                 <li>راتب شهر كامل عن كل سنة من السنوات التالية</li>
             </ul>
         </div>
-    </main>
+    </div>
+</main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">المرجع القضائي</div>
-            <ul class="footer-links">
-                <li><a href="../index.html">الرئيسية</a></li>
-                <li><a href="calculator.html">حاسبة مكافأة نهاية الخدمة</a></li>
-                <li><a href="about.html">نبذة</a></li>
-                <li><a href="contact.html">تواصل معنا</a></li>
-            </ul>
-            <div class="social-icons">
-                <a href="calculator.html#"><i class="fab fa-twitter"></i></a>
-                <a href="calculator.html#"><i class="fab fa-linkedin"></i></a>
-                <a href="calculator.html#"><i class="fab fa-instagram"></i></a>
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="footer-logo-row">
+                <img src="../images/final_logo.svg" alt="شعار المرجع القضائي">
+                <span>المرجع القضائي</span>
             </div>
-            <div class="copyright">
-                &copy; 2025 القاضي عزان الكمالي - جميع الحقوق محفوظة
+            <p class="footer-brand-desc">منصة قانونية متكاملة تقدم أدوات ومراجع قضائية دقيقة لسلطنة عُمان.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>الأدوات</h4>
+            <ul class="footer-links-list">
+                <li><a href="calculator.html">حاسبة نهاية الخدمة</a></li>
+                <li><a href="alimony_calculator.html">حاسبة النفقة التقديرية</a></li>
+                <li><a href="new_law.html">القانون الجديد ٢٠٢٣/٥٣</a></li>
+                <li><a href="old_law.html">القانون القديم ٢٠٠٣/٣٥</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>الموقع</h4>
+            <ul class="footer-links-list">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="about.html">نبذة عنا</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 القاضي عزان الكمالي — جميع الحقوق محفوظة</p>
+        <p>alkamali.uk</p>
+    </div>
+</footer>
 
-    <script src="../js/main.js"></script>
-    
-    <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04ae7959925e4fe692ceab1bd15e1a62"}'></script><!-- End Cloudflare Web Analytics -->
+<button class="scroll-top-btn" id="scrollTopBtn"><i class="fas fa-chevron-up"></i></button>
+<script src="../js/main.js"></script>
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "04ae7959925e4fe692ceab1bd15e1a62"}'></script>
 </body>
 </html>

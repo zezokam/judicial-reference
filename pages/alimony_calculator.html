@@ -19,12 +19,11 @@
     <meta name="twitter:description" content="أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية، مع الأخذ في الاعتبار أن التقدير النهائي يخضع للسلطة التقديرية للمحكمة." />
     <meta name="twitter:image" content="https://alkamali.uk/images/thumbnails/alimony-calculator-og-image.jpg" />
     
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/calculator.css">
-    <!-- Font Awesome للأيقونات -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts - Tajawal -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .form-group {
             margin-bottom: 1.5rem;
@@ -313,33 +312,41 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="../index.html" class="logo">
-                <img src="../images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
-                <h1>المرجع القضائي</h1>
-            </a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul class="nav-links">
-                <li><a href="../index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
-                <li><a href="alimony_calculator.html"><i class="fas fa-money-bill-wave icon"></i>حاسبة النفقة التقديرية</a></li>
-                <li><a href="calculator.html"><i class="fas fa-calculator icon"></i>حاسبة مكافأة نهاية الخدمة</a></li>
-                <li><a href="about.html"><i class="fas fa-info-circle icon"></i>نبذة</a></li>
-                <li><a href="contact.html"><i class="fas fa-envelope icon"></i>تواصل معنا</a></li>
-                <li><a href="login.html"><i class="fas fa-user icon"></i>تسجيل الدخول</a></li>
-            </ul>
-        </nav>
-    </header>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<header id="mainHeader" class="page-header-nav">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">
+            <img src="../images/final_logo.svg" alt="شعار المرجع القضائي" id="logo-placeholder">
+            <h1>المرجع القضائي</h1>
+        </a>
+        <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="../index.html"><i class="fas fa-home icon"></i>الرئيسية</a></li>
+            <li><a href="calculator.html"><i class="fas fa-calculator icon"></i>نهاية الخدمة</a></li>
+            <li><a href="alimony_calculator.html" class="active"><i class="fas fa-scale-balanced icon"></i>النفقة</a></li>
+            <li><a href="about.html"><i class="fas fa-user-tie icon"></i>نبذة</a></li>
+            <li><a href="contact.html"><i class="fas fa-envelope icon"></i>تواصل</a></li>
+            <li><a href="login.html" class="btn-login-nav"><i class="fas fa-sign-in-alt icon"></i>دخول</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="page-header">
+    <div class="page-header-content">
+        <h1 class="page-title">حاسبة النفقة <span class="gold">التقديرية</span></h1>
+        <p class="page-description">أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية — التقدير النهائي يخضع للسلطة التقديرية للمحكمة.</p>
+        <div class="page-breadcrumb">
+            <a href="../index.html">الرئيسية</a>
+            <i class="fas fa-chevron-left" style="font-size:0.65rem;"></i>
+            <span>حاسبة النفقة التقديرية</span>
+        </div>
+    </div>
+</div>
 
     <main>
-        <div class="page-header">
-            <h1 class="page-title">حاسبة النفقة التقديرية</h1>
-            <p class="page-description">أداة استرشادية لحساب النفقة التقديرية للأبناء وفقاً لأحدث المعايير القضائية، مع الأخذ في الاعتبار أن التقدير النهائي يخضع للسلطة التقديرية للمحكمة.</p>
-        </div>
-
-        <div class="content-section">
+        <div class="content-section" style="padding-top:2rem;">
             <div class="calculator-container">
                 <div class="calculator-form">
                     <form id="alimonyForm">
@@ -573,26 +580,42 @@
         </div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">المرجع القضائي</div>
-            <ul class="footer-links">
-                <li><a href="../index.html">الرئيسية</a></li>
-                <li><a href="alimony_calculator.html">حاسبة النفقة التقديرية</a></li>
-                <li><a href="calculator.html">حاسبة مكافأة نهاية الخدمة</a></li>
-                <li><a href="about.html">نبذة</a></li>
-                <li><a href="contact.html">تواصل معنا</a></li>
-            </ul>
-            <div class="social-icons">
-                <a href="alimony_calculator.html#"><i class="fab fa-twitter"></i></a>
-                <a href="alimony_calculator.html#"><i class="fab fa-linkedin"></i></a>
-                <a href="alimony_calculator.html#"><i class="fab fa-instagram"></i></a>
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand">
+            <div class="footer-logo-row">
+                <img src="../images/final_logo.svg" alt="شعار المرجع القضائي">
+                <span>المرجع القضائي</span>
             </div>
-            <div class="copyright">
-                &copy; 2025 القاضي عزان الكمالي - جميع الحقوق محفوظة
+            <p class="footer-brand-desc">منصة قانونية متكاملة تقدم أدوات ومراجع قضائية دقيقة لسلطنة عُمان.</p>
+            <div class="footer-socials">
+                <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
             </div>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>الأدوات</h4>
+            <ul class="footer-links-list">
+                <li><a href="calculator.html">حاسبة نهاية الخدمة</a></li>
+                <li><a href="alimony_calculator.html">حاسبة النفقة التقديرية</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>الموقع</h4>
+            <ul class="footer-links-list">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="about.html">نبذة عنا</a></li>
+                <li><a href="contact.html">تواصل معنا</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 القاضي عزان الكمالي — جميع الحقوق محفوظة</p>
+        <p>alkamali.uk</p>
+    </div>
+</footer>
+<button class="scroll-top-btn" id="scrollTopBtn"><i class="fas fa-chevron-up"></i></button>
 
     <script src="calculator.js"></script>
     <script>
